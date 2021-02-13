@@ -23,13 +23,6 @@ class CreateUsersTable extends Migration
             $table->string('code');
             $table->string('notes');
 
-            $table->unsignedBigInteger('point_id');
-            $table->unsignedBigInteger('car_id');
-            $table->unsignedBigInteger('notification_id');
-
-            $table->foreign('point_id')->references('id')->on('points') ->onDelete('cascade');
-            $table->foreign('car_id')->references('id')->on('cars') ->onDelete('cascade');
-            $table->foreign('notification_id')->references('id')->on('notifications') ->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });

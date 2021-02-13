@@ -17,12 +17,8 @@ class CreateCarsTable extends Migration
             $table->bigIncrements('id');
             $table->string('type',65);
             $table->string('color',65);
+            $table->string('code');
             $table->string('notes');
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('appointment_id');
-
-            $table->foreign('user_id')->references('id')->on('users') ->onDelete('cascade');
-            $table->foreign('appointment_id')->references('id')->on('appointments') ->onDelete('cascade');
 
             $table->timestamps();
         });

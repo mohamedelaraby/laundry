@@ -19,12 +19,6 @@ class CreatePointsTable extends Migration
             $table->Integer('points_used');
             $table->Integer('points_unused');
             $table->Integer('points_total');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('service_id');
-            $table->unsignedBigInteger('participator_id')->nullable();
-
-            $table->foreign('user_id')->references('id')->on('users') ->onDelete('cascade');
-            $table->foreign('service_id')->references('id')->on('services') ->onDelete('cascade');
 
             $table->timestamps();
         });

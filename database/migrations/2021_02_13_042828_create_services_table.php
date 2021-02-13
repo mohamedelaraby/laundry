@@ -19,12 +19,6 @@ class CreateServicesTable extends Migration
             $table->string('type',100);
             $table->string('notes',100);
 
-            $table->unsignedBigInteger('point_id',100);
-            $table->unsignedBigInteger('user_id',100);
-
-            $table->foreign('user_id')->references('id')->on('users') ->onDelete('cascade');
-            $table->foreign('point_id')->references('id')->on('points') ->onDelete('cascade');
-
             $table->timestamps();
         });
     }

@@ -17,10 +17,10 @@ class CreateParticipatorsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name',100);
             $table->string('img');
-            $table->unsignedInteger('points');
+            $table->unsignedInteger('service_points');
             $table->string('service_img');
+            $table->date('service_date');
             $table->string('notes');
-            $table->date('date');
             $table->timestamps();
         });
     }
