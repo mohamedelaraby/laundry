@@ -17,8 +17,9 @@ class CreateAppointmentsTable extends Migration
             $table->bigIncrements('id');
             $table->date('date_from');
             $table->date('date_to');
-            $table->string('notes');
+            $table->string('notes')->nullable();
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

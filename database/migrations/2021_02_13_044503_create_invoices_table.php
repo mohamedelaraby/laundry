@@ -16,7 +16,9 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name',100);
-            $table->string('notes',100);
+            $table->string('notes',100)->nullable();
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

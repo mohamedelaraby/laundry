@@ -12,6 +12,7 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
+        "laravel/ui": "1.0.*",
         "nwidart/laravel-modules": "^8.2"
     },
     "require-dev": {
@@ -38,6 +39,8 @@
         "classmap": [
             "database/seeds",
             "database/factories"
+        ], "files":[
+            "app/Helpers/General.php"
         ]
     },
     "autoload-dev": {

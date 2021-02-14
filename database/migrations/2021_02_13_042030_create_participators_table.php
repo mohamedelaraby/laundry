@@ -21,6 +21,8 @@ class CreateParticipatorsTable extends Migration
             $table->string('service_img');
             $table->date('service_date');
             $table->string('notes');
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -14,8 +14,8 @@ class AddForeignKeysToServicesTable extends Migration
     public function up()
     {
         Schema::table('services', function (Blueprint $table) {
-            $table->unsignedBigInteger('point_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('point_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users') ->onDelete('cascade');
             $table->foreign('point_id')->references('id')->on('points') ->onDelete('cascade');
 

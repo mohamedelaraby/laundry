@@ -14,8 +14,8 @@ class AddForeignKeysToCarsTable extends Migration
     public function up()
     {
         Schema::table('cars', function (Blueprint $table) {
-           $table->unsignedBigInteger('user_id');
-           $table->unsignedBigInteger('appointment_id');
+           $table->unsignedBigInteger('user_id')->nullable();
+           $table->unsignedBigInteger('appointment_id')->nullable();
 
            $table->foreign('user_id')->references('id')->on('users') ->onDelete('cascade');
            $table->foreign('appointment_id')->references('id')->on('appointments') ->onDelete('cascade');

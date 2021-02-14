@@ -16,10 +16,11 @@ class CreateCarsTable extends Migration
         Schema::create('cars', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('type',65);
-            $table->string('color',65);
-            $table->string('code');
-            $table->string('notes');
+            $table->string('color',65)->nullable();
+            $table->string('code')->nullable();
+            $table->string('notes')->nullable();
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

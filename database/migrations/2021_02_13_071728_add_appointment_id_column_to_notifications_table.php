@@ -14,7 +14,7 @@ class AddAppointmentIdColumnToNotificationsTable extends Migration
     public function up()
     {
         Schema::table('notifications', function (Blueprint $table) {
-            $table->unsignedBigInteger('appointment_id');
+            $table->unsignedBigInteger('appointment_id')->nullable();
             $table->foreign('appointment_id')->references('id')->on('appointments') ->onDelete('cascade');
         });
     }
