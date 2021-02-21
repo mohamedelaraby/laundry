@@ -16,14 +16,11 @@ class CreateCarsTable extends Migration
         Schema::create('cars', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('type',65);
-            $table->string('color',65);
-            $table->string('notes');
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('appointment_id');
+            $table->string('color',65)->nullable();
+            $table->string('code')->nullable();
+            $table->string('notes')->nullable();
 
-            $table->foreign('user_id')->references('id')->on('users') ->onDelete('cascade');
-            $table->foreign('appointment_id')->references('id')->on('appointments') ->onDelete('cascade');
-
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -16,12 +16,10 @@ class CreateNotificationsTable extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('body');
-            $table->string('notes');
-
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users') ->onDelete('cascade');
+            $table->string('notes')->nullable();
 
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

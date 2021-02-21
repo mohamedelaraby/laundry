@@ -55,6 +55,14 @@ return [
             'visibility' => 'public',
         ],
 
+        // Main Cateogry path
+        'users_photos' => [
+            'driver' => 'local',
+            'root' => base_path() . '/assets/images/users_photos/',
+            'url' => 'http://localhost/laundry/public',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -64,6 +72,10 @@ return [
             'url' => env('AWS_URL'),
         ],
 
+    ],
+    
+    'links' => [
+        public_path('storage') => storage_path('app/public'),
     ],
 
 ];

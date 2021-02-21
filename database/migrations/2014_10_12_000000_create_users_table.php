@@ -19,17 +19,12 @@ class CreateUsersTable extends Migration
             $table->string('email',100)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password',120);
-            $table->string('img');
-            $table->string('code');
-            $table->string('notes');
+            $table->string('phone')->nullable();
+            $table->string('img')->nullable();
+            $table->string('code')->nullable();
+            $table->string('notes')->nullable();
 
-            $table->unsignedBigInteger('point_id');
-            $table->unsignedBigInteger('car_id');
-            $table->unsignedBigInteger('notification_id');
-
-            $table->foreign('point_id')->references('id')->on('points') ->onDelete('cascade');
-            $table->foreign('car_id')->references('id')->on('cars') ->onDelete('cascade');
-            $table->foreign('notification_id')->references('id')->on('notifications') ->onDelete('cascade');
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });

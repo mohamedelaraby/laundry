@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +13,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+Route::get('lang/{lang}', function ($lang) {
+    session()->has('lang')? session()->forget('lang') : ' ';
+    $lang = in_array($lang, ['ar','en']) ?  session()->put('lang', $lang):session()->put('lang', '');
+    return back();
 });
+
+
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+
