@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\UserDataTable;
+
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserCreateRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -26,160 +28,146 @@ class userController extends Controller
          */
         public function index()
         {
-            
             $users = DB::table('users')->get();
             return view('users.index',compact('users'));
         }
     
-        // /**
-        //  * Show the form for creating a new resource.
-        //  *
-        //  * @return \Illuminate\Http\Response
-        //  */
-        // public function create()
-        // {
-        //     return view('admin.admins.create',['title'=>trans('admin.create_admin')]);
-        // }
-    
-        // /**
-        //  * Store a newly created resource in storage.
-        //  *
-        //  * @param  \Illuminate\Http\Request
-        //  * @return \Illuminate\Http\Response
-        //  */
-        // public function store()
-        // {
-        //    // Validation rules
-        //    $rules = [
-        //        'name' => 'required|max:65',
-        //        'email' => 'required|email|unique:admins',
-        //        'password' => 'required|min:6|max:34',
-        //    ];
-    
-        //    // Validate admin
-        //    $data = $this->validate(request(),$rules,[],[
-        //        'name' => trans('admin.form_name'),
-        //        'email' => trans('admin.form_email'),
-        //        'password' => trans('admin.form_password'),
-        //    ]);
-    
-        //    // Create new admin
-        //    $data['name'] = request('name');
-        //    $data['email'] = request('email');
-        //    $data['password'] = bcrypt(request('password'));
-    
-        //    Admin::create($data);
-    
-        //    // Session message
-        //    session()->flash('msg',trans('admin.record_added'));
-           
-        //    // Redirect back
-        //    return redirect(admin_url('admin'));
-        // }
-    
-        // /**
-        //  * Display the specified resource.
-        //  *
-        //  * @param  int  $id
-        //  * @return \Illuminate\Http\Response
-        //  */
-        // public function show($id)
-        // {
-        //     //
-        // }
-    
-        // /**
-        //  * Show the form for editing the specified resource.
-        //  *
-        //  * @param  int  $id
-        //  * @return \Illuminate\Http\Response
-        //  */
-        // public function edit($id)
-        // {
-        //     $admin = Admin::find($id);
-        //     return view('admin.admins.edit',compact('admin'),['title'=>trans('admin.edit')]);
-        // }
-    
-        // /**
-        //  * Update the specified resource in storage.
-        //  *
-        //  * @param  \Illuminate\Http\Request  $request
-        //  * @param  int  $id
-        //  * @return \Illuminate\Http\Response
-        //  */
-        // public function update(Request $request, $id)
-        // {
-        //    // Validation rules
-        //    $rules = [
-        //     'name' => 'required|max:65',
-        //     'email' => 'required|email|unique:admins,email,'.$id,
-        //     'password' => 'sometimes|nullable',
-        // ];
-    
-        // // Validate admin
-        // $data = $this->validate(request(),$rules,[],[
-        //     'name' => trans('admin.form_name'),
-        //     'email' => trans('admin.form_email'),
-        //     'password' => trans('admin.form_password'),
-        // ]);
-    
-        // // Create new admin
-        // $data['name'] = request('name');
-        // $data['email'] = request('email');
-        // if(request()->has('password')){
-        //     $data['password'] = bcrypt(request('password'));
-        // }
-    
-        // // Update Admin data
-        // Admin::where('id',$id)->update($data);
-    
-        // // Session message
-        // session()->flash('msg',trans('admin.record_updated'));
-        
-        // // Redirect back
-        // return redirect(admin_url('admin'));
-        // }
-    
-        // /**
-        //  * Remove the specified resource from storage.
-        //  *
-        //  * @param  int  $id
-        //  * @return \Illuminate\Http\Response
-        //  */
-        // public function destroy($id)
-        // {
-        //     // Find admin
-        //     Admin::find($id)->delete();
-    
-        //     // session message
-        //     session()->flash('msg',trans('admin.record_deleted'));
+        /**
+         * Store a newly created resource in storage.
+         *
+         * @param  \Illuminate\Http\Request
+         * @return \Illuminate\Http\Response
+         */
+        public function store(UserCreateRequest $request)
+        {
+          
+
+
+             
+                $image = uploadImage('users_photos',$request->img);
+
+          $users = User::create([
+                    'password' => bcrypt($request->password),
+                    'phone' => $request->phone,
+                    'img' => $img,
+                    'code' => bcrypt($request->code),
+                    'created_by' =>currentUser(),
+                ]);
+               
+                dd('users');
+         
+                // Session message
+                session()->flash('add',trans('admin.added_record'));
+                
+                // Redirect back
+                return redirect(route('admins.users.index'));
             
-        //     // Redirect back
-        //     return redirect(admin_url('admin'));
-        
-        // }
-        
-        // /**
-        //  * Remove the multi resource from storage.
-        //  *
-        //  * @param  int  $id
-        //  * @return \Illuminate\Http\Response
-        //  */
-        // public function multi_delete()
-        // {
-        //     // Check if items have multi elements or just one
-        //     if(is_array(request('item'))){
-        //         // If item[] has many destroy all
-        //         Admin::destroy(request('item'));
-        //     } else {
-        //         // If item[] has one Find that element and delete
-        //         Admin::find(request('item'))->delete();
-        //     }
-        //     // Session message for success delete
-        //     Session::flash('msg',trans('admin.record_deleted'));
     
-        //     // Redirect back to index
-        //     return redirect('admin/admin');
-        // }
+        }
+    
+        /**
+         * Display the specified resource.
+         *
+         * @param  int  $id
+         * @return \Illuminate\Http\Response
+         */
+        public function show($id)
+        {
+            //
+        }
+    
+        /**
+         * Show the form for editing the specified resource.
+         *
+         * @param  int  $id
+         * @return \Illuminate\Http\Response
+         */
+        public function edit($id)
+        {
+            $User = User::find($id);
+            return view('User.Users.edit',compact('User'),['title'=>trans('User.edit')]);
+        }
+    
+        /**
+         * Update the specified resource in storage.
+         *
+         * @param  \Illuminate\Http\Request  $request
+         * @param  int  $id
+         * @return \Illuminate\Http\Response
+         */
+        public function update(Request $request, $id)
+        {
+           // Validation rules
+           $rules = [
+            'name' => 'required|max:65',
+            'email' => 'required|email|unique:Users,email,'.$id,
+            'password' => 'sometimes|nullable',
+        ];
+    
+        // Validate User
+        $data = $this->validate(request(),$rules,[],[
+            'name' => trans('User.form_name'),
+            'email' => trans('User.form_email'),
+            'password' => trans('User.form_password'),
+        ]);
+    
+        // Create new User
+        $data['name'] = request('name');
+        $data['email'] = request('email');
+        if(request()->has('password')){
+            $data['password'] = bcrypt(request('password'));
+        }
+    
+        // Update User data
+        User::where('id',$id)->update($data);
+    
+        // Session message
+        session()->flash('msg',trans('User.record_updated'));
+        
+        // Redirect back
+        return redirect(User_url('User'));
+        }
+    
+        /**
+         * Remove the specified resource from storage.
+         *
+         * @param  int  $id
+         * @return \Illuminate\Http\Response
+         */
+        public function destroy($id)
+        {
+            // Find User
+            User::find($id)->delete();
+    
+            // session message
+            session()->flash('msg',trans('User.record_deleted'));
+            
+            // Redirect back
+            return redirect(User_url('User'));
+        
+        }
+        
+        /**
+         * Remove the multi resource from storage.
+         *
+         * @param  int  $id
+         * @return \Illuminate\Http\Response
+         */
+        public function multi_delete()
+        {
+            // Check if items have multi elements or just one
+            if(is_array(request('item'))){
+                // If item[] has many destroy all
+                User::destroy(request('item'));
+            } else {
+                // If item[] has one Find that element and delete
+                User::find(request('item'))->delete();
+            }
+            // Session message for success delete
+            Session::flash('msg',trans('User.record_deleted'));
+    
+            // Redirect back to index
+            return redirect('User/User');
+        }
     
 }

@@ -53,7 +53,21 @@ if (!function_exists('lang')) {
 
 
 
-
+/**
+ *  Upload images
+ * 
+ *  @param mixed| null $folder
+ *  @param mixed| null $image
+ * @return string
+ */
+if(!function_exists('uploadImage')){
+    function uploadImage($folder,$image){
+     $image->store('/',$folder);
+     $fileName = $image->hashName();
+     $path = 'images/' . $folder . '/'  .$fileName;
+     return $path;
+    }
+}
 
 
 

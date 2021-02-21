@@ -74,10 +74,15 @@ return [
    'vendor'=>' متجر',
    'level'=>' مستوي العضوية',
 
+   'adduser'=>'إضافة عميل',
    'user_id'=>'رقم العميل',
+   'username'=>' اسم المستخدم',
    'user_name'=>' اسم العميل',
+   'user_password'=>'كلمة المرور',
+   'user_confirmpassword'=>'تأكيد كلمة المرور',
    'user_email'=>'الايميل ',
-   'user_phone'=>'رقم التليفون ',
+   'user_phone'=>'رقم التليفون',
+   'user_img'=>'الصورة الشخصية',
    'user_notes'=>'ملاحظات العميل ',
    'user_code'=>'كود العميل ',
 

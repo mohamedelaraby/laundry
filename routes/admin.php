@@ -34,7 +34,8 @@ Route::group(['prefix'=> '/','middleware' => 'auth:web'],function(){
     */
     Route::group(['prefix'=> '/users',],function(){
 
-        Route::resource('/', 'UserController');
+        Route::get('/', 'UserController@index')->name('admins.users.index');
+        Route::post('/', 'UserController@store')->name('admins.users.store');
 
     });
     
