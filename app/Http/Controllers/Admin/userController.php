@@ -2,36 +2,29 @@
 
 namespace App\Http\Controllers\Admin;
 
-
+use App\DataTables\UserDatatable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserCreateRequest;
 use App\Models\User;
+use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\ImageManagerStatic as Image;
 
-class userController extends Controller
+class UserController extends Controller
 {
-   /**
-     * Create a new controller instance.
+    
+     /**
+     * Process datatables ajax request.
      *
-     * @return void
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function __construct()
+    public function index(UserDatatable $dataTable)
     {
-        $this->middleware('auth');
+        return $dataTable->render('users.index');
     }
 
-        /**
-         * Display a listing of the resource.
-         *
-         * @return \Illuminate\Http\Response
-         */
-        public function index()
-        {
-            $users = DB::table('users')->get();
-            return view('users.index',compact('users'));
-        }
-    
         /**
          * Store a newly created resource in storage.
          *
@@ -40,31 +33,38 @@ class userController extends Controller
          */
         public function store(UserCreateRequest $request)
         {
-          
 
 
-             
-                $image = uploadImage('users_photos',$request->img);
+        $path = '';
 
-          $users = User::create([
-                    'password' => bcrypt($request->password),
-                    'phone' => $request->phone,
-                    'img' => $img,
-                    'code' => bcrypt($request->code),
-                    'created_by' =>currentUser(),
-                ]);
-               
-                dd('users');
-         
-                // Session message
-                session()->flash('add',trans('admin.added_record'));
-                
-                // Redirect back
-                return redirect(route('admins.users.index'));
-            
-    
+        // Upload category image
+        if(request()->hasFile('img')){
+            $path = uploadImage('users_photos',$request->img);
         }
-    
+
+        $data =[
+            'name' =>$request->name,
+            'user_name' =>$request->user_name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'phone' => $request->phone,
+            'img' => $path,
+            'code' => bcrypt($request->code),
+            'notes' => $request->notes,
+            'created_by' =>currentUser()->name,
+        ];
+
+        $users =  User::create($data);
+
+
+        // Session message
+        session()->flash('add',trans('admin.added_record'));
+
+        // Redirect back
+        return response()->json();
+
+        }
+
         /**
          * Display the specified resource.
          *
@@ -75,7 +75,7 @@ class userController extends Controller
         {
             //
         }
-    
+
         /**
          * Show the form for editing the specified resource.
          *
@@ -87,7 +87,7 @@ class userController extends Controller
             $User = User::find($id);
             return view('User.Users.edit',compact('User'),['title'=>trans('User.edit')]);
         }
-    
+
         /**
          * Update the specified resource in storage.
          *
@@ -103,31 +103,31 @@ class userController extends Controller
             'email' => 'required|email|unique:Users,email,'.$id,
             'password' => 'sometimes|nullable',
         ];
-    
+
         // Validate User
         $data = $this->validate(request(),$rules,[],[
             'name' => trans('User.form_name'),
             'email' => trans('User.form_email'),
             'password' => trans('User.form_password'),
         ]);
-    
+
         // Create new User
         $data['name'] = request('name');
         $data['email'] = request('email');
         if(request()->has('password')){
             $data['password'] = bcrypt(request('password'));
         }
-    
+
         // Update User data
         User::where('id',$id)->update($data);
-    
+
         // Session message
         session()->flash('msg',trans('User.record_updated'));
-        
+
         // Redirect back
         return redirect(User_url('User'));
         }
-    
+
         /**
          * Remove the specified resource from storage.
          *
@@ -138,15 +138,15 @@ class userController extends Controller
         {
             // Find User
             User::find($id)->delete();
-    
+
             // session message
             session()->flash('msg',trans('User.record_deleted'));
-            
+
             // Redirect back
             return redirect(User_url('User'));
-        
+
         }
-        
+
         /**
          * Remove the multi resource from storage.
          *
@@ -165,9 +165,9 @@ class userController extends Controller
             }
             // Session message for success delete
             Session::flash('msg',trans('User.record_deleted'));
-    
+
             // Redirect back to index
             return redirect('User/User');
         }
-    
+
 }

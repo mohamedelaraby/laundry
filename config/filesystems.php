@@ -55,7 +55,7 @@ return [
             'visibility' => 'public',
         ],
 
-        // Main Cateogry path
+        // users photos path
         'users_photos' => [
             'driver' => 'local',
             'root' => base_path() . '/assets/images/users_photos/',
@@ -73,7 +73,7 @@ return [
         ],
 
     ],
-    
+
     'links' => [
         public_path('storage') => storage_path('app/public'),
     ],

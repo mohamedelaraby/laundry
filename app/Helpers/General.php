@@ -32,6 +32,30 @@ if (!function_exists('admin_url')) {
     }
 }
 
+//[[[[[[[   UI Helper Functions  ]]]]]]]
+/**
+ *  Handle adminLTE design url prefix
+ *  @var string |null $url
+ *  @return URL
+ */
+if (!function_exists('admin_ui')) {
+    function admin_ui($url = null)
+    {
+        return url('/design/admin/' . $url);
+    }
+}
+
+/**
+ *  Handle UI design url prefix
+ *  @var string |null $url
+ *  @return URL
+ */
+if (!function_exists('ui_url')) {
+    function ui_url($url = null)
+    {
+        return url('/design/front/' . $url);
+    }
+}
 
 
 /**
@@ -55,7 +79,7 @@ if (!function_exists('lang')) {
 
 /**
  *  Upload images
- * 
+ *
  *  @param mixed| null $folder
  *  @param mixed| null $image
  * @return string

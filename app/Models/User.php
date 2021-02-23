@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -17,11 +16,14 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'user_name',
          'email',
           'password',
+          'phone',
           'img',
           'code',
           'notes',
+          'created_by',
           'point_id',
           'car_id',
           'notification_id',

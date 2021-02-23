@@ -100,7 +100,24 @@ return [
     'canceledappointments' =>'المواعيد الملغية',
     'notifications' =>' الإشعارات',
    
-
+    "sProcessing" => "تحميل",
+    "sLengthMenu" => " اظهار  _MENU_  تسجيل",
+   "sZeroRecords" => "صفر سجلات",
+    "sEmptyTable" => " جدول خالي",
+          "sInfo" => "اظهار _START_ الي  _END_ من  _TOTAL_  سجلات",
+     "sInfoEmpty" => "معلومات خالية",
+  "sInfoFiltered" => "معلومات _MAX_ سجلات منتقاه",
+   "sInfoPostFix" => "",
+        "sSearch" => "بحث",
+           "sUrl" => "",
+ "sInfoThousands" => "",
+"sLoadingRecords" => " تحميل السجلات",
+         "sFirst" => "االاول",
+          "sLast" => "الاخير",
+          "sNext" => "التالي",
+      "sPrevious" => "السابق",
+      "sSortAscending" => "ترتيب بحسب الاقل",
+      "sSortDescending" =>  " ترتيب بحسب الاكبر",
 
 
 

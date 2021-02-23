@@ -8,8 +8,10 @@
 					<h6 class="modal-title">{{ trans('admin.adduser') }}</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
 				</div>
 				<div class="modal-body">
-          {!! Form::open(['route'=>'admins.users.store','enctype'=>"multipart/form-data"]) !!} 
-                    {!! Form::token() !!}
+                    @include('layouts.include.message')
+          {!! Form::open(['enctype' =>'multipart/form-data']) !!}
+
+
                     {{-- name --}}
                     <div class="form-group">
                     <div class="form-group {{$errors->has('name') ? 'has-error' : ''}}">
@@ -18,27 +20,29 @@
                                    [ 'class' =>'form-control',
                                     // 'required' =>true,
                                     'placeholder' =>trans('admin.user_name'),
-                                    'auto-focus'=>'true' ])
+                                    'auto-focus'=>'true',
+                                    'id'=>'name', ])
                       !!}
                       <span class="text-danger">{{$errors->has('name') ? $errors->first('name') : ''}}</span>
-                   
-                    </div> 
-                    
-                    {{-- name --}}
-                    <div class="form-group">
-                      <div class="form-group {{$errors->has('username') ? 'has-error' : ''}}">
-
-                      {!! Form::label('username', trans('admin.username')) !!}
-                      {!! Form::text('username',old('username'),
-                                   [ 'class' =>'form-control',
-                                    // 'required' =>true,
-                                    'placeholder' =>trans('admin.username'),
-                                    'auto-focus'=>'true' ])
-                      !!}
-                      <span class="text-danger">{{$errors->has('username') ? $errors->first('username') : ''}}</span>
 
                     </div>
-                    
+
+                    {{-- user_name --}}
+                    <div class="form-group">
+                      <div class="form-group {{$errors->has('user_name') ? 'has-error' : ''}}">
+
+                      {!! Form::label('user_name', trans('admin.user_name')) !!}
+                      {!! Form::text('user_name',old('user_name'),
+                                   [ 'class' =>'form-control',
+                                    // 'required' =>true,
+                                    'placeholder' =>trans('admin.user_name'),
+                                    'auto-focus'=>'true',
+                                    'id'=>'user_name', ])
+                      !!}
+                      <span class="text-danger">{{$errors->has('user_name') ? $errors->first('user_name') : ''}}</span>
+
+                    </div>
+
                     {{-- Email --}}
                     <div class="form-group">
                       <div class="form-group {{$errors->has('email') ? 'has-error' : ''}}">
@@ -47,7 +51,8 @@
                                    [ 'class' =>'form-control',
                                     // 'required' =>true,
                                     'placeholder' =>trans('admin.user_email'),
-                                    'auto-focus'=>'true' ])
+                                    'auto-focus'=>'true',
+                                    'id'=>'email', ])
                       !!}
                       <span class="text-danger">{{$errors->has('email') ? $errors->first('email') : ''}}</span>
 
@@ -61,7 +66,8 @@
                                    [ 'class' =>'form-control',
                                     // 'required' =>true,
                                     'placeholder' =>trans('admin.user_password'),
-                                    'auto-focus'=>'true' ])
+                                    'auto-focus'=>'true',
+                                    'id'=>'password', ])
                       !!}
                     <span class="text-danger">{{$errors->has('password') ? $errors->first('password') : ''}}</span>
                     </div>
@@ -72,14 +78,14 @@
                       {!! Form::password('confirmpassword',
                                    [ 'class' =>'form-control',
                                     // 'required' =>true,
-                                    'placeholder' =>trans('admin.user_password'),
+                                    'placeholder' =>trans('admin.user_confirmpassword'),
                                     'auto-focus'=>'true',
                                     'auto-autocomplete'=>'new-password',
-                          
+                                    'id'=>'confirmpassword',
                                      ])
                       !!}
                     </div>
-                    
+
                     {{-- phone --}}
                     <div class="form-group">
                       <div class="form-group {{$errors->has('phone') ? 'has-error' : ''}}">
@@ -88,24 +94,26 @@
                                    [ 'class' =>'form-control',
                                     // 'required' =>true,
                                     'placeholder' =>trans('admin.user_phone'),
-                                    'auto-focus'=>'true' ])
+                                    'auto-focus'=>'true',
+                                    'id'=>'phone', ])
                       !!}
                         <span class="text-danger">{{$errors->has('phone') ? $errors->first('phone') : ''}}</span>
                         <div id="logo-output" class="mb-3"></div>
-                    </div>	
-                    
+                    </div>
+
                     {{-- img --}}
                     <div class="form-group">
                       <div class="form-group {{$errors->has('img') ? 'has-error' : ''}}">
                       {!! Form::label('img', trans('admin.user_img')) !!}
                       {!! Form::file('img',
                                    [ 'class' =>'form-control',
-                                    'auto-focus'=>'true' ])
+                                    'auto-focus'=>'true',
+                                    'id'=>'img' ])
                       !!}
                       <span class="text-danger">{{$errors->has('img') ? $errors->first('img') : ''}}</span>
 
-                    </div>	
-                    
+                    </div>
+
                     {{-- code --}}
                     <div class="form-group">
                       <div class="form-group {{$errors->has('code') ? 'has-error' : ''}}">
@@ -114,12 +122,13 @@
                                    [ 'class' =>'form-control',
                                     // 'required' =>true,
                                     'placeholder' =>trans('admin.user_code'),
-                                    'auto-focus'=>'true' ])
+                                    'auto-focus'=>'true',
+                                    'id'=>'code', ])
                       !!}
                       <span class="text-danger">{{$errors->has('code') ? $errors->first('code') : ''}}</span>
                       <div id="logo-output" class="mb-3"></div>
-                    </div>	 
-                    
+                    </div>
+
                     {{-- notes --}}
                     <div class="form-group">
                       {!! Form::label('notes', trans('admin.user_notes')) !!}
@@ -127,9 +136,10 @@
                                    [ 'class' =>'form-control',
 
                                     'placeholder' =>trans('admin.user_notes'),
-                                    'auto-focus'=>'true' ])
+                                    'auto-focus'=>'true',
+                                    'id'=>'notes', ])
                       !!}
-                    </div>				
+                    </div>
                 </div>
 				<div class="modal-footer">
 					<button class="btn ripple btn-primary" type="submit" id="save_btn">{{ trans('admin.save') }}</button>
@@ -139,51 +149,3 @@
 			</div>
 		</div>
 	</div>
-	<!-- End Basic modal -->
- @push('js')
-   
- 
-<script>
-$(document).ready(function() {
-   
-    $('#butsave').on('click', function() {
-      var name = $('#name').val();
-      var email = $('#email').val();
-      var phone = $('#phone').val();
-      var city = $('#city').val();
-      var password = $('#password').val();
-      if(name!="" && email!="" && phone!="" && city!=""){
-        /*  $("#butsave").attr("disabled", "disabled"); */
-          $.ajax({
-              url: "/userData",
-              type: "POST",
-              data: {
-                  _token: $("#csrf").val(),
-                  type: 1,
-                  name: name,
-                  email: email,
-                  phone: phone,
-                  city: city
-              },
-              cache: false,
-               success: function(dataResult){
-                  console.log(dataResult);
-                  var dataResult = JSON.parse(dataResult);
-                  if(dataResult.statusCode==200){
-                    window.location = "/userData";				
-                  }
-                  else if(dataResult.statusCode==201){
-                     alert("Error occured !");
-                  }
-                  
-              }
-          });
-      }
-      else{
-          alert('Please fill all the field !');
-      }
-        });
-});
-</script>
-
-@endpush
