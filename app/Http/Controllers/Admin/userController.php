@@ -21,7 +21,7 @@ class UserController extends Controller
      */
     public function index(UserDatatable $dataTable)
     {
-        
+
         return $dataTable->render('users.index',[
             'title' => trans('admin.users'),
             'id' => $dataTable->id,
@@ -71,6 +71,12 @@ class UserController extends Controller
         public function edit($id)
         {
             $user = User::find($id);
+
+            if(!$user){
+                session()->flash('error',trans('auth.not_found'));
+                return view('users.index');
+            }
+
             return view('users.edit',compact('user'),['title'=>trans('admin.edit')]);
         }
 
@@ -83,35 +89,23 @@ class UserController extends Controller
          */
         public function update(Request $request, $id)
         {
-           // Validation rules
-           $rules = [
-            'name' => 'required|max:65',
-            'email' => 'required|email|unique:Users,email,'.$id,
-            'password' => 'sometimes|nullable',
-        ];
+            
+            try{
+                $language = Language::find($id);
+                if(!$language){
+                    show_message('error',trans('auth.failed'));
+                    return redirect()->route('admin.languages.edit',$id);
+                }
 
-        // Validate User
-        $data = $this->validate(request(),$rules,[],[
-            'name' => trans('User.form_name'),
-            'email' => trans('User.form_email'),
-            'password' => trans('User.form_password'),
-        ]);
+            //Update language
+            $language->update($request->except("_token"));
+            show_message('msg',trans('auth.update'));
+            return redirect()->route('admin.languages');
 
-        // Create new User
-        $data['name'] = request('name');
-        $data['email'] = request('email');
-        if(request()->has('password')){
-            $data['password'] = bcrypt(request('password'));
-        }
-
-        // Update User data
-        User::where('id',$id)->update($data);
-
-        // Session message
-        session()->flash('msg',trans('User.record_updated'));
-
-        // Redirect back
-        return redirect(User_url('User'));
+            } catch (Exception $exception){
+                    show_message('error',trans('auth.add'));
+                    return redirect()->route('admin.languages');
+            }
         }
 
         /**

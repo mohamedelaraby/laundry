@@ -27,7 +27,6 @@
             && phone != ""
             && code != ""
             && password != ""){
-            /*  $("#butsave").attr("disabled", "disabled"); */
               $.ajax({
                   url: "{{route('admins.users.store')}}",
                   type: "POST",
@@ -65,16 +64,21 @@
             });
     });
 
-    </script>
+</script>
 
-{{--  Update  --}}
+
+@endsection
+
+
+@section('js')
 <script type="text/javascript">
 
+    // Insert
     $(document).ready(function() {
 
-        $('#edit_btn').on('click', function(e) {
+        $('#update_btn').on('click', function(e) {
 
-            e.stopPropagation();
+        alert('update');
 
           var name = $('#name').val();
           var user_name = $('#user_name').val();
@@ -87,16 +91,15 @@
           var notes = $('#notes').val();
 
 
-
+/*
           if(name!=""
             && user_name != ""
             && email != ""
             && phone != ""
             && code != ""
             && password != ""){
-            /*  $("#butsave").attr("disabled", "disabled"); */
               $.ajax({
-                  url: "/admin/users/{$id}",
+                  url: "{{route('admins.users.store')}}",
                   type: "POST",
 
                   data: {
@@ -128,12 +131,9 @@
           else{
             e.preventDefault();
               alert('Please fill all the field !');
-          }
+          }*/
             });
     });
 
-    </script>
-
-
-
+</script>
 @endsection

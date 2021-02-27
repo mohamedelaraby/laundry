@@ -1,26 +1,23 @@
 @extends('layouts.index')
 @section('title')
-{{ trans('admin.edituser') }}
+{{ trans('admin.users') }}
 @stop
 @section('page-header')
 				<!-- breadcrumb -->
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">
-                                {{ trans('admin.edit') }}
-                            </h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/{{ trans('admin.userslist') }}</span>
+							<h4 class="content-title mb-0 my-auto">{{ trans('admin.edit_users') }}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/{{ trans('admin.userslist') }}</span>
 						</div>
 
 					</div>
 				</div>
 				<!-- breadcrumb -->
 @endsection
-
-@include('layouts.include.message')
-
 @section('content')
-<div class="row">
+<!-- Create modal -->
+<section class="content">
+    <div class="row">
 	<div class="col-xl-12">
 		@include('layouts.include.message')
 		<div class="card mg-b-20">
@@ -31,10 +28,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="card-body">          
+			<div class="card-body">
+
+                @include('layouts.include.message')
+
           {!! Form::open(['enctype' =>'multipart/form-data']) !!}
 
-        
+
                     {{-- name --}}
                     <div class="form-group">
                     <div class="form-group {{$errors->has('name') ? 'has-error' : ''}}">
@@ -164,13 +164,18 @@
                       !!}
                     </div>
                 </div>
-                <button class="btn ripple btn-primary" type="submit" id="save_btn">{{ trans('admin.save') }}</button>
-                <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">{{ trans('admin.close') }}</button>
+
+					<button class="btn ripple btn-primary" type="submit" id="update_btn">{{ trans('admin.save') }}</button>
+					<button class="btn ripple btn-secondary" data-dismiss="modal" type="button">{{ trans('admin.close') }}</button>
 
         {!! Form::close() !!}
-    </div>
-</div>
-</div>
+			</div>
+		</div>
+	</div>
 @endsection
 
 
+
+@section('js')
+    @include('users.scripts')
+@endsection

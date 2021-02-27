@@ -7,11 +7,10 @@
 				</div>
 				<div class="modal-body">
 
-                @include('layouts.include.message')
+        @include('layouts.include.message')
 
           {!! Form::open(['enctype' =>'multipart/form-data']) !!}
 
-        
                     {{-- name --}}
                     <div class="form-group">
                     <div class="form-group {{$errors->has('name') ? 'has-error' : ''}}">

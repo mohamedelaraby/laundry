@@ -75,7 +75,7 @@ class UserDatatable extends DataTable
     {
         return [
             'dom'  => 'Blfrtip',
-            'lengthMenu' => [[10,25,50,100],[10,25,50,trans('admin.all_records')] ],
+            'lengthMenu' => [[10,25,50,100],[10,25,50,100,trans('admin.all_records')] ],
 
             'buttons' =>$this->getButtons(),
             'initComplete' => "function () {
@@ -170,7 +170,7 @@ class UserDatatable extends DataTable
 
     /**
      *  Get user code
-     * 
+     *
      * @var mixed $user
      * @return bool
      */

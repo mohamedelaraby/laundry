@@ -57,10 +57,12 @@
 
 {{--   End Datatable --}}
 @endsection
+
 @push('scripts')
 
 {!! $dataTable->scripts() !!}
-
 @endpush
 
-@include('users.scripts')
+@section('js')
+    @include('users.scripts')
+@endsection
