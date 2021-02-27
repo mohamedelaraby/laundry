@@ -1,14 +1,37 @@
-<!-- Create modal -->
-	<div class="modal" id="modaldemo8">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content modal-content-demo">
-				<div class="modal-header">
-					<h6 class="modal-title">{{ trans('admin.adduser') }}</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+@extends('layouts.index')
+@section('title')
+{{ trans('admin.edituser') }}
+@stop
+@section('page-header')
+				<!-- breadcrumb -->
+				<div class="breadcrumb-header justify-content-between">
+					<div class="my-auto">
+						<div class="d-flex">
+							<h4 class="content-title mb-0 my-auto">
+                                {{ trans('admin.edit') }}
+                            </h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/{{ trans('admin.userslist') }}</span>
+						</div>
+
+					</div>
 				</div>
-				<div class="modal-body">
+				<!-- breadcrumb -->
+@endsection
 
-                @include('layouts.include.message')
+@include('layouts.include.message')
 
+@section('content')
+<div class="row">
+	<div class="col-xl-12">
+		@include('layouts.include.message')
+		<div class="card mg-b-20">
+			<div class="card-header pb-0">
+				<div class="d-flex justify-content-between">
+					<div class="col-sm-6 col-md-4 col-xl-4">
+						<a class="modal-effect btn btn-primary" data-effect="effect-scale" data-toggle="modal" href="#modaldemo8">{{ trans('admin.adduser') }}</a>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">          
           {!! Form::open(['enctype' =>'multipart/form-data']) !!}
 
         
@@ -141,14 +164,13 @@
                       !!}
                     </div>
                 </div>
-				<div class="modal-footer">
-					<button class="btn ripple btn-primary" type="submit" id="save_btn">{{ trans('admin.save') }}</button>
-					<button class="btn ripple btn-secondary" data-dismiss="modal" type="button">{{ trans('admin.close') }}</button>
-				</div>
-        {!! Form::close() !!}
-			</div>
-		</div>
-	</div>
+                <button class="btn ripple btn-primary" type="submit" id="save_btn">{{ trans('admin.save') }}</button>
+                <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">{{ trans('admin.close') }}</button>
 
+        {!! Form::close() !!}
+    </div>
+</div>
+</div>
+@endsection
 
 

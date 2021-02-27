@@ -31,16 +31,20 @@
 			</div>
 			<div class="card-body">
 
+                <div class="table-responsive">
+                    <table class="table text-md-nowrap" id="example1">
 
-				<table class="table table-bordered" id="users-table">
-					{!!$dataTable->table([
-						'class' => 'datatable table table-bordered table-striped table-hover'
-					  ],true)!!}
-				</table>
+                        {!!$dataTable->table([
+                            'class' => 'datatable table table-bordered table-striped'
+                            ],true)!!}
+                        </table>
+                        </div>
+
 			</div>
 						</div>
 					</div>
 					<!--/div-->
+
 
 	<!-- Basic modal -->
 	@include('users.form')

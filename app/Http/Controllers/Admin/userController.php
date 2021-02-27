@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserCreateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 
@@ -20,7 +21,11 @@ class UserController extends Controller
      */
     public function index(UserDatatable $dataTable)
     {
-        return $dataTable->render('users.index');
+        
+        return $dataTable->render('users.index',[
+            'title' => trans('admin.users'),
+            'id' => $dataTable->id,
+        ]);
     }
 
         /**
@@ -65,8 +70,8 @@ class UserController extends Controller
          */
         public function edit($id)
         {
-            $User = User::find($id);
-            return view('User.Users.edit',compact('User'),['title'=>trans('User.edit')]);
+            $user = User::find($id);
+            return view('users.edit',compact('user'),['title'=>trans('admin.edit')]);
         }
 
         /**

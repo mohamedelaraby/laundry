@@ -1,3 +1,5 @@
+
+
 <!-- Create modal -->
 	<div class="modal" id="modaldemo8">
 		<div class="modal-dialog" role="document">
@@ -11,12 +13,13 @@
 
           {!! Form::open(['enctype' =>'multipart/form-data']) !!}
 
-        
+          <input type="hidden" value="{{$user->id}}" name="user_id">
+
                     {{-- name --}}
                     <div class="form-group">
                     <div class="form-group {{$errors->has('name') ? 'has-error' : ''}}">
                       {!! Form::label('name', trans('admin.user_name')) !!}
-                      {!! Form::text('name',old('name'),
+                      {!! Form::text('name',old('name') ?? $user->name,
                                    [ 'class' =>'form-control',
                                     // 'required' =>true,
                                     'placeholder' =>trans('admin.user_name'),
@@ -149,6 +152,7 @@
 			</div>
 		</div>
 	</div>
+
 
 
 

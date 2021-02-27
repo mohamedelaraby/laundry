@@ -22,10 +22,9 @@ Route::group(['prefix'=> '/','middleware' => 'auth:web'],function(){
     | Admin Routes
     |--------------------------------------------------------------------------
     */
-    Route::group(['prefix'=> '/admin','namespace'=>'Admin','middleware' => 'guest:admin'],function(){
+    Route::group(['prefix'=> 'admin','namespace'=>'Admin','middleware' => 'guest:admin'],function(){
 
         Route::get('/','AdminController@index')->name('dashboard');
-
 
     /*
     |--------------------------------------------------------------------------
@@ -36,6 +35,7 @@ Route::group(['prefix'=> '/','middleware' => 'auth:web'],function(){
 
         Route::get('/', 'UserController@index')->name('admins.users.index');
         Route::post('/', 'UserController@store')->name('admins.users.store');
+        Route::get('/edit/{id}', 'UserController@edit')->name('admins.users.edit');
         Route::post('/update/{id}', 'UserController@update')->name('admins.users.update');
         Route::post('/delete/{id}', 'UserController@destroy')->name('admins.users.destroy');
 

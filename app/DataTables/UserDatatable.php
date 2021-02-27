@@ -24,24 +24,13 @@ class UserDatatable extends DataTable
             ->addColumn('actions', 'users.btn.actions')
             ->rawColumns(['actions'])
             ->addColumn('code',function(User $user){
-                if(!$user->code ){
-                    return "No Code";
-                } else {
-                    return $user->code;
-                }
+                return $this->userCode($user);
             })
             ->addColumn('phone',function(User $user){
                 if(!$user->phone ){
                     return "Add Phone number";
                 } else {
                     return $user->phone;
-                }
-            })
-            ->addColumn('user_name',function(User $user){
-                if(!$user->user_name ){
-                    return "Add User number";
-                } else {
-                    return $user->user_name;
                 }
             })
             ->editColumn('created_at',function(User $user){
@@ -58,9 +47,9 @@ class UserDatatable extends DataTable
      * @param \App\App\UserDatatable $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(User $model)
+    public function query()
     {
-        return $model->newQuery();
+        return User::query();
     }
 
     /**
@@ -86,8 +75,9 @@ class UserDatatable extends DataTable
     {
         return [
             'dom'  => 'Blfrtip',
+            'lengthMenu' => [[10,25,50,100],[10,25,50,trans('admin.all_records')] ],
 
-        'buttons' =>$this->getButtons(),
+            'buttons' =>$this->getButtons(),
             'initComplete' => "function () {
                 this.api().columns([1,2,3,4,5]).every(function () {
                     var column = this;
@@ -98,6 +88,7 @@ class UserDatatable extends DataTable
                     });
                 });
             }",
+
             'language' => datatable_lang(),
         ];
     }
@@ -112,12 +103,10 @@ class UserDatatable extends DataTable
         return  [
             ['extend'=>'reload','className'=>'btn btn-primary my-2','text'=>'<i class="fa fa-print"></i>  '.trans('admin.ex_reload')],
             ['extend'=>'print','className'=>'btn btn-primary my-2','text'=>'<i class="fa fa-print"></i>  '.trans('admin.ex_print')],
-
             ['extend'=>'excel',
             'className'=>'btn btn-success my-2',
             'text'=>'<i class="fas fa-table"></i> '. trans('admin.ex_excel')
             ],
-
             ['extend'=>'csv',
             'className'=>'btn btn-info my-2',
             'text'=>'<i class="fa fa-file"></i>  '. trans('admin.ex_csv')
@@ -144,46 +133,50 @@ class UserDatatable extends DataTable
                 'title' => trans('admin.user_name')
             ],
             [
+                'data' => 'actions',
+                'name' => 'Options',
+                'title' => trans('admin.options')
+            ],
+            [
+                'data' => 'phone',
+                'name' => 'phone',
+                'title' => trans('admin.user_phone')
+            ],
+            [
                 'data' => 'email',
                 'name' => 'email',
                 'title' => trans('admin.user_email')
             ],
             [
-                'data' => 'edit',
+                'data' => 'code',
                 'name' => 'code',
                 'title' => trans('admin.user_code')
             ],
-             [
-                'data' => 'delete',
-                'name' => 'code',
-                'title' => trans('admin.user_code')
-            ],
-            // [
-            //     'data' => 'created_at',
-            //     'name' => 'created_at',
-            //     'title' => trans('admin.created_at')
-            // ],
-            // [
-            //     'data' => 'updated_at',
-            //     'name' => 'updated_at',
-            //     'title' => trans('admin.updated_at')
-            // ],
-            Column::computed('edit')
-            ->title(trans('admin.edit'))
-            ->exportable(false)
-            ->printable(false)
-            ->orderable(false)
-            ->width(20)
-            ->addClass('text-center'),
 
-            Column::computed('delete')
-            ->title(trans('admin.delete'))
-            ->exportable(false)
-            ->printable(false)
-            ->orderable(false)
-            ->width(20)
-            ->addClass('text-center'),
+
+
+            // Column::computed('actions')
+            // ->title(trans('admin.options'))
+            // ->exportable(false)
+            // ->printable(false)
+            // ->orderable(false)
+            // ->width(20)
+            // ->addClass('text-center'),
+
+
         ];
+    }
+
+
+    /**
+     *  Get user code
+     * 
+     * @var mixed $user
+     * @return bool
+     */
+
+    private function userCode($user){
+        return !$user->code ? "No Code" : $user->code;
     }
 
     /**
