@@ -67,10 +67,6 @@
 </script>
 
 
-@endsection
-
-
-@section('js')
 <script type="text/javascript">
 
     // Insert
@@ -78,7 +74,6 @@
 
         $('#update_btn').on('click', function(e) {
 
-        alert('update');
 
           var name = $('#name').val();
           var user_name = $('#user_name').val();
@@ -89,9 +84,11 @@
           var img = $('#img').val();
           var code = $('#code').val();
           var notes = $('#notes').val();
+      var url = 'admin/users/update' + $id;
 
+          alert(update_id);
 
-/*
+/**
           if(name!=""
             && user_name != ""
             && email != ""
@@ -99,7 +96,7 @@
             && code != ""
             && password != ""){
               $.ajax({
-                  url: "{{route('admins.users.store')}}",
+                url: 'admin/users/update'+update_id,
                   type: "POST",
 
                   data: {
@@ -132,8 +129,9 @@
             e.preventDefault();
               alert('Please fill all the field !');
           }*/
-            });
+        });
     });
+
 
 </script>
 @endsection

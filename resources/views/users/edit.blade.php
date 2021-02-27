@@ -22,24 +22,20 @@
 		@include('layouts.include.message')
 		<div class="card mg-b-20">
 			<div class="card-header pb-0">
-				<div class="d-flex justify-content-between">
-					<div class="col-sm-6 col-md-4 col-xl-4">
-						<a class="modal-effect btn btn-primary" data-effect="effect-scale" data-toggle="modal" href="#modaldemo8">{{ trans('admin.adduser') }}</a>
-					</div>
-				</div>
+
 			</div>
 			<div class="card-body">
 
-                @include('layouts.include.message')
+            @include('layouts.include.message')
 
           {!! Form::open(['enctype' =>'multipart/form-data']) !!}
 
-
+                    
                     {{-- name --}}
                     <div class="form-group">
                     <div class="form-group {{$errors->has('name') ? 'has-error' : ''}}">
                       {!! Form::label('name', trans('admin.user_name')) !!}
-                      {!! Form::text('name',old('name'),
+                      {!! Form::text('name',$user->name,
                                    [ 'class' =>'form-control',
                                     // 'required' =>true,
                                     'placeholder' =>trans('admin.user_name'),
@@ -55,7 +51,7 @@
                       <div class="form-group {{$errors->has('user_name') ? 'has-error' : ''}}">
 
                       {!! Form::label('user_name', trans('admin.user_name')) !!}
-                      {!! Form::text('user_name',old('user_name'),
+                      {!! Form::text('user_name',$user->user_name,
                                    [ 'class' =>'form-control',
                                     // 'required' =>true,
                                     'placeholder' =>trans('admin.user_name'),
@@ -70,7 +66,7 @@
                     <div class="form-group">
                       <div class="form-group {{$errors->has('email') ? 'has-error' : ''}}">
                       {!! Form::label('email', trans('admin.email')) !!}
-                      {!! Form::email('email',old('email'),
+                      {!! Form::email('email',$user->email,
                                    [ 'class' =>'form-control',
                                     // 'required' =>true,
                                     'placeholder' =>trans('admin.user_email'),
@@ -113,7 +109,7 @@
                     <div class="form-group">
                       <div class="form-group {{$errors->has('phone') ? 'has-error' : ''}}">
                       {!! Form::label('phone', trans('admin.user_phone')) !!}
-                      {!! Form::number('phone',old('name') ,
+                      {!! Form::text('phone',$user->phone ,
                                    [ 'class' =>'form-control',
                                     // 'required' =>true,
                                     'placeholder' =>trans('admin.user_phone'),
@@ -141,7 +137,7 @@
                     <div class="form-group">
                       <div class="form-group {{$errors->has('code') ? 'has-error' : ''}}">
                       {!! Form::label('code', trans('admin.user_code')) !!}
-                      {!! Form::text('code',old('code'),
+                      {!! Form::text('code',$user->code,
                                    [ 'class' =>'form-control',
                                     // 'required' =>true,
                                     'placeholder' =>trans('admin.user_code'),
@@ -155,7 +151,7 @@
                     {{-- notes --}}
                     <div class="form-group">
                       {!! Form::label('notes', trans('admin.user_notes')) !!}
-                      {!! Form::textarea('notes',old('notes'),
+                      {!! Form::textarea('notes',$user->notes,
                                    [ 'class' =>'form-control',
 
                                     'placeholder' =>trans('admin.user_notes'),
@@ -165,15 +161,20 @@
                     </div>
                 </div>
 
-					<button class="btn ripple btn-primary" type="submit" id="update_btn">{{ trans('admin.save') }}</button>
-					<button class="btn ripple btn-secondary" data-dismiss="modal" type="button">{{ trans('admin.close') }}</button>
-
+                <div class="form-actions">
+                    <button type="button" class="btn btn-warning mr-1"
+                            onclick="history.back();">
+                        <i class="ft-x"></i> {{ trans('admin.back') }}
+                    </button>
+                    <button class="btn btn-primary" id="update_btn">
+                        <i class="la la-check-square-o"></i> {{ trans('admin.update') }}
+                    </button>
+                </div>
         {!! Form::close() !!}
 			</div>
 		</div>
 	</div>
 @endsection
-
 
 
 @section('js')
