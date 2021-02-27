@@ -6,15 +6,13 @@ use App\DataTables\UserDatatable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserCreateRequest;
 use App\Models\User;
-use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
-use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    
+
      /**
      * Process datatables ajax request.
      *
@@ -35,28 +33,11 @@ class UserController extends Controller
         {
 
 
-        $path = '';
+        dd($this->UserData($request));
 
-        // Upload category image
-        if(request()->hasFile('img')){
-            $path = uploadImage('users_photos',$request->img);
-        }
+        $users =  User::create($this->UserData($request));
 
-        $data =[
-            'name' =>$request->name,
-            'user_name' =>$request->user_name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'phone' => $request->phone,
-            'img' => $path,
-            'code' => bcrypt($request->code),
-            'notes' => $request->notes,
-            'created_by' =>currentUser()->name,
-        ];
-
-        $users =  User::create($data);
-
-
+        dd($users);
         // Session message
         session()->flash('add',trans('admin.added_record'));
 
@@ -147,27 +128,59 @@ class UserController extends Controller
 
         }
 
-        /**
-         * Remove the multi resource from storage.
-         *
-         * @param  int  $id
-         * @return \Illuminate\Http\Response
-         */
-        public function multi_delete()
-        {
-            // Check if items have multi elements or just one
-            if(is_array(request('item'))){
-                // If item[] has many destroy all
-                User::destroy(request('item'));
-            } else {
-                // If item[] has one Find that element and delete
-                User::find(request('item'))->delete();
-            }
-            // Session message for success delete
-            Session::flash('msg',trans('User.record_deleted'));
+/*
+|--------------------------------------------------------------------------
+| Facilitators functions
+|--------------------------------------------------------------------------
+*/
 
-            // Redirect back to index
-            return redirect('User/User');
-        }
+
+/**
+ * Hash user code
+ *
+ * @param mixed  $request
+ *@return string
+ */
+private function codeHash($request){
+    if($request->code){
+        return Hash::make($request->code);
+    } else {
+        return Str::random(10);
+    }
+}
+
+/**
+ * Upload user image
+ *
+ * @param mixed  $request
+ *@return string
+ */
+private function uploadUserImage($request){
+
+    if(request()->has('img')){
+        return uploadImage('users_photos',$request->img);
+    } else {
+        return '';
+    }
+}
+    /**
+     * Get user data
+     *
+     * @param mixed  $request
+     *@return string
+    */
+    private function UserData($request){
+        return [
+            'name' =>$request->name,
+            'user_name' =>$request->user_name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'phone' => $request->phone,
+            'img' => $this->uploadUserImage($request),
+            'code' => $this->codeHash($request),
+            'notes' => $request->notes,
+            'created_by' =>currentUser()->name,
+        ];
+    }
 
 }

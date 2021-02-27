@@ -30,15 +30,13 @@
 				</div>
 			</div>
 			<div class="card-body">
-			
-						
+
+
 				<table class="table table-bordered" id="users-table">
 					{!!$dataTable->table([
 						'class' => 'datatable table table-bordered table-striped table-hover'
 					  ],true)!!}
 				</table>
-						
-
 			</div>
 						</div>
 					</div>
