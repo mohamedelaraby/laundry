@@ -9,7 +9,7 @@
 
         @include('layouts.include.message')
 
-          {!! Form::open(['enctype' =>'multipart/form-data']) !!}
+          {!! Form::open() !!}
 
                     {{-- name --}}
                     <div class="form-group">

@@ -64,10 +64,10 @@
             });
     });
 
-</script>
 
 
-<script type="text/javascript">
+
+
 
     // Insert
     $(document).ready(function() {

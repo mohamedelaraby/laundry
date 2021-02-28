@@ -30,7 +30,7 @@
 
           {!! Form::open(['enctype' =>'multipart/form-data']) !!}
 
-                    
+
                     {{-- name --}}
                     <div class="form-group">
                     <div class="form-group {{$errors->has('name') ? 'has-error' : ''}}">

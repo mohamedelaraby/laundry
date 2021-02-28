@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    users
+    {{ trans('admin.users') }}
 @endsection
 
 @section('content')

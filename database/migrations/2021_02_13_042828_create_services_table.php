@@ -15,9 +15,12 @@ class CreateServicesTable extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name',100);
-            $table->string('type',100)->nullable();
-            $table->string('notes',100)->nullable();
+            $table->string('name',120);
+            $table->string('type',120)->nullable();
+            $table->text('description',255)->nullable();
+            $table->time('due_to')->nullable();
+            $table->integer('points',false)->nullable();
+            $table->string('notes',120)->nullable();
 
             $table->softDeletes();
             $table->timestamps();

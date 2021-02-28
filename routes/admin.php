@@ -43,6 +43,21 @@ Route::group(['prefix'=> '/','middleware' => 'auth:web'],function(){
 
     /*
     |--------------------------------------------------------------------------
+    | Users Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::group(['prefix'=> '/services',],function(){
+
+        Route::get('/', 'ServiceController@index')->name('admins.services.index');
+        Route::post('/', 'ServiceController@store')->name('admins.services.store');
+        Route::get('/edit/{id}', 'ServiceController@edit')->name('admins.services.edit');
+        Route::post('/update/{id}', 'ServiceController@update')->name('admins.services.update');
+        Route::post('/delete/{id}', 'ServiceController@destroy')->name('admins.services.destroy');
+
+    });
+
+    /*
+    |--------------------------------------------------------------------------
     | appointments Routes
     |--------------------------------------------------------------------------
     */
