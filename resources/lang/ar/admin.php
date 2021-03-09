@@ -34,11 +34,13 @@ return [
      // admin Datatable
      'ex_excel' => 'تصدير ملف  Excel',
      'ex_print' => 'طباعة',
+     'ex_reload' => 'اعادة تحميل',
      'ex_csv' => 'تصدير ملف CSV',
      'all_records' => 'كل السجلات',
 
 
 
+    'id'=>'الرقم التسلسلي',
     'admin_id'=>'رقم المشرف',
     'admin_name'=>'اسم المشرف',
     'admin_email'=>'ايميل المشرف',
@@ -74,7 +76,6 @@ return [
    'vendor'=>' متجر',
    'level'=>' مستوي العضوية',
 
-   'adduser'=>'إضافة عميل',
    'user_id'=>'رقم العميل',
    'username'=>' اسم المستخدم',
    'user_name'=>' اسم العميل',
@@ -85,14 +86,25 @@ return [
    'user_img'=>'الصورة الشخصية',
    'user_notes'=>'ملاحظات العميل ',
    'user_code'=>'كود العميل ',
-
-    // Settings
-    'options' =>'الخيارات',
-    'settings' =>'الاعدادات',
-    'invoices' =>'الفواتير',
-    'points' =>'النقاط',
-    'services' =>'الخدمات',
-
+   
+   // Settings
+   'options' =>'الخيارات',
+   'settings' =>'الاعدادات',
+   'invoices' =>'الفواتير',
+   'points' =>'النقاط',
+   
+   
+   // Services
+   'addService'=>'إضافة خدمة',
+   'services' =>'الخدمات',
+    'service_max_time' =>'الي دقيقة',
+    'service_min_time' =>'من دقيقة',
+    'service_name' =>'اسم الخدمة',
+    'service_type' =>'نوع الخدمة',
+    
+    
+    
+    
     // Appointments
     'appointments' =>'مواعيد الحجوزات',
     'currentappointments' =>' المواعيد الحالية',

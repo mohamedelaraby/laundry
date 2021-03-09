@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddForeignKeysToServicesTable extends Migration
+class AddForeignKeysToPricesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class AddForeignKeysToServicesTable extends Migration
      */
     public function up()
     {
-        Schema::table('services', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->before('created_at')->nullable();
-            $table->foreign('user_id')->references('id')->on('users') ->onDelete('cascade');
-
+        Schema::table('prices', function (Blueprint $table) {
+            $table->unsignedBigInteger('car_id')->after('notes')->nullable();
+            $table->foreign('car_id')->references('id')->on('cars') ->onDelete('cascade');
         });
     }
 
@@ -27,7 +26,7 @@ class AddForeignKeysToServicesTable extends Migration
      */
     public function down()
     {
-        Schema::table('services', function (Blueprint $table) {
+        Schema::table('prices', function (Blueprint $table) {
             //
         });
     }

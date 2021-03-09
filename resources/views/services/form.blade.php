@@ -1,33 +1,40 @@
-{!! Form::token() !!}
-{{-- name --}}
-<div class="form-group">
-  {!! Form::label('name', trans('admin.name')) !!}
-  {!! Form::text('name',old('name') ?? $admin->name,
-               [ 'class' =>'form-control',
-                // 'required' =>true,
-                'placeholder' =>trans('admin.name'),
-                'auto-focus'=>'true' ])
-  !!}
+{{ csrf_field() }}
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group {{$errors->has('name') ? 'has-error' : ''}}" >
+            <label for="projectinput1"> {{ trans('admin.service_name') }} </label>
+            <input type="text" value="{{ old('name') ?? $service->name }}" id="name"
+                   class="form-control"
+                   placeholder=" {{ trans('admin.service_name') }}"
+                   name="name">
+                   <span class="text-danger">{{$errors->has('name') ? $errors->first('name') : ''}}</span>
+        </div>
+    </div>
+
+    {{--  Min_Time  --}}
+    <div class="form-group">
+        <label for="exampleFormControlSelect1">{{ trans('admin.service_type') }}</label>
+        <select class="form-control" id="">
+            @foreach($service->types() as $type)
+          <option>{{ $type }}</option>
+          @endforeach
+        </select>
+      </div>
+
+    <div class="col-md-6">
+        <div class="form-group {{$errors->has('servicetype') ? 'has-error' : ''}}" >
+            <label for="projectinput1"> {{ trans('admin.service_type') }} </label>
+            <input type="text" value="" id="name"
+                   class="form-control"
+                   placeholder="{{ trans('admin.service_type') }}"
+                   name="servicetype">
+            <span class="text-danger">{{$errors->has('servicetype') ? $errors->first('servicetype') : ''}}</span>
+        </div>
+    </div>
 </div>
 
-{{-- Email --}}
-<div class="form-group">
-  {!! Form::label('email', trans('admin.email')) !!}
-  {!! Form::email('email',old('email') ?? $admin->email,
-               [ 'class' =>'form-control',
-                // 'required' =>true,
-                'placeholder' =>trans('admin.email'),
-                'auto-focus'=>'true' ])
-  !!}
-</div>
 
-{{-- password --}}
-<div class="form-group">
-  {!! Form::label('password', trans('admin.password')) !!}
-  {!! Form::password('password',
-               [ 'class' =>'form-control',
-                // 'required' =>true,
-                'placeholder' =>trans('admin.password'),
-                'auto-focus'=>'true' ])
-  !!}
+
+
+
 </div>

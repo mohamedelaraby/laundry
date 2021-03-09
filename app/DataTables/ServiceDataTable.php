@@ -2,14 +2,14 @@
 
 namespace App\DataTables;
 
-use App\DataTables\ServiceDataTable;
+use App\Models\Service;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class ServiceDataTable extends DataTable
+class ServiceDataTable extends DataTable implements BaseDatatableInterface
 {
     /**
      * Build DataTable class.
@@ -21,7 +21,25 @@ class ServiceDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'servicedatatable.action');
+            ->addColumn('actions', 'services.btn.actions')
+            ->rawColumns(['actions'])
+            ->editColumn('type',function(Service $service){
+                return $service->types;
+            })
+            // ->addColumn('phone',function(User $user){
+            //     if(!$user->phone ){
+            //         return "Add Phone number";
+            //     } else {
+            //         return $user->phone;
+            //     }
+            // })
+            ->editColumn('created_at',function(Service $service){
+                return $service->created_at->diffForHumans();
+            })
+            ->editColumn('updated_at',function(Service $service){
+                return $service->updated_at->diffForHumans();
+            });
+
     }
 
     /**
@@ -30,9 +48,9 @@ class ServiceDataTable extends DataTable
      * @param \App\Models\ServiceDataTable $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(ServiceDataTable $model)
+    public function query()
     {
-        return $model->newQuery();
+        return Service::query();
     }
 
     /**
@@ -42,19 +60,39 @@ class ServiceDataTable extends DataTable
      */
     public function html()
     {
+
         return $this->builder()
-                    ->setTableId('servicedatatable-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+        ->setTableId('servicedatatable-table')
+        ->columns($this->getColumns())
+        ->minifiedAjax()
+        ->parameters($this->getParameters());
+    }
+
+     /**
+     * Get Parameters.
+     *
+     * @return array
+     */
+    public function getParameters()
+    {
+        return [
+            'dom'  => 'Blfrtip',
+            'lengthMenu' => [[10,25,50,100],[10,25,50,100,trans('admin.all_records')] ],
+
+            'buttons' =>$this->getButtons(),
+            'initComplete' => "function () {
+                this.api().columns([1,2,3,4,5]).every(function () {
+                    var column = this;
+                    var input = document.createElement(\"input\");
+                    $(input).appendTo($(column.footer()).empty())
+                    .on('keyup', function () {
+                        column.search($(this).val(), false, false, true).draw();
+                    });
+                });
+            }",
+
+            'language' => datatable_lang(),
+        ];
     }
 
     /**
@@ -62,18 +100,61 @@ class ServiceDataTable extends DataTable
      *
      * @return array
      */
-    protected function getColumns()
+    public function getButtons()
+    {
+        return  [
+            ['extend'=>'reload','className'=>'btn btn-primary my-2','text'=>'<i class="fa fa-reload"></i>  '.trans('admin.ex_reload')],
+            ['extend'=>'print','className'=>'btn btn-primary my-2','text'=>'<i class="fa fa-print"></i>  '.trans('admin.ex_print')],
+            ['extend'=>'excel',
+            'className'=>'btn btn-success my-2',
+            'text'=>'<i class="fas fa-table"></i> '. trans('admin.ex_excel')
+            ],
+            ['extend'=>'csv',
+            'className'=>'btn btn-info my-2',
+            'text'=>'<i class="fa fa-file"></i>  '. trans('admin.ex_csv')
+            ],
+        ];
+    }
+
+    /**
+     * Get columns.
+     *
+     * @return array
+     */
+    public function getColumns()
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            [
+                'data' => 'id',
+                'name' => 'id',
+                'title' => trans('admin.id')
+            ],
+            [
+                'data' => 'name',
+                'name' => 'name',
+                'title' => trans('admin.service_name')
+            ],
+            [
+                'data' => 'actions',
+                'name' => 'Options',
+                'title' => trans('admin.options')
+            ],
+            [
+                'data' => 'type',
+                'name' => 'type',
+                'title' => trans('admin.service_type')
+            ],
+            [
+                'data' => 'min_time',
+                'name' => 'min_time',
+                'title' => trans('admin.service_min_time')
+            ],
+            [
+                'data' => 'max_time',
+                'name' => 'max_time',
+                'title' => trans('admin.service_max_time')
+            ],
+
         ];
     }
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddForeignKeysToServicesTable extends Migration
+class AddForeignKeyTypeIdToServicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,8 @@ class AddForeignKeysToServicesTable extends Migration
     public function up()
     {
         Schema::table('services', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->before('created_at')->nullable();
-            $table->foreign('user_id')->references('id')->on('users') ->onDelete('cascade');
-
+            $table->unsignedBigInteger('type_id')->after('notes')->nullable();
+            $table->foreign('type_id')->references('id')->on('service_types') ->onDelete('cascade');
         });
     }
 

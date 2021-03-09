@@ -17,11 +17,11 @@ class Service extends Model
      */
     protected $fillable = [
         'id',
-         'name',
-         'type',
+         'min_time',
+         'max_time',
          'notes',
-        'point_id',
         'user_id',
+        'type_id',
     ];
 
 
@@ -34,19 +34,17 @@ class Service extends Model
 /**
  * user which have take service
  *
- * @return \Illuminate\Database\Eloquent\Relations\HasMany
  */
 public function user(){
     return $this->belongsTo(User::class);
 }
 
 /**
- * points which have belongs to service
+ * service Types which have belongs to service
  *
- * @return \Illuminate\Database\Eloquent\Relations\HasMany
  */
-public function points(){
-    return $this->hasMany(Point::class);
+public function types(){
+    return $this->hasMany(ServiceType::class);
 }
 
 
