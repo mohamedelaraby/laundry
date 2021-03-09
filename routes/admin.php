@@ -49,7 +49,8 @@ Route::group(['prefix'=> '/','middleware' => 'auth:web'],function(){
     Route::group(['prefix'=> '/services',],function(){
 
         Route::get('/', 'ServiceController@index')->name('admins.services.index');
-        Route::post('/', 'ServiceController@store')->name('admins.services.store');
+        Route::get('/create', 'ServiceController@create')->name('admins.services.create');
+        Route::post('/create', 'ServiceController@create')->name('admins.services.store');
         Route::get('/edit/{id}', 'ServiceController@edit')->name('admins.services.edit');
         Route::post('/update/{id}', 'ServiceController@update')->name('admins.services.update');
         Route::post('/delete/{id}', 'ServiceController@destroy')->name('admins.services.destroy');

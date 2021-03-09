@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\ServiceDataTable;
+use App\DataTables\ServiceDataTable;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
