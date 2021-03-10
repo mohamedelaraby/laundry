@@ -12,6 +12,6 @@ class ServiceTypesSeeder extends Seeder
      */
     public function run()
     {
-        factory(ServiceType::class, 50)->create();
+        factory(ServiceType::class, 500)->create();
     }
 }

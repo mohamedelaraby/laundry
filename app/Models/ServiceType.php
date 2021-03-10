@@ -20,6 +20,7 @@ class ServiceType extends Model
          'description',
          'points',
         'price_id',
+        'service_id',
     ];
 
 /*

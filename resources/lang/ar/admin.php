@@ -86,14 +86,14 @@ return [
    'user_img'=>'الصورة الشخصية',
    'user_notes'=>'ملاحظات العميل ',
    'user_code'=>'كود العميل ',
-   
+
    // Settings
    'options' =>'الخيارات',
    'settings' =>'الاعدادات',
    'invoices' =>'الفواتير',
    'points' =>'النقاط',
-   
-   
+
+
    // Services
    'addService'=>'إضافة خدمة',
    'services' =>'الخدمات',
@@ -101,17 +101,20 @@ return [
     'service_min_time' =>'من دقيقة',
     'service_name' =>'اسم الخدمة',
     'service_type' =>'نوع الخدمة',
-    
-    
-    
-    
+    'service_types' =>'أنواع الخدمة',
+    'addservicetype' =>'اضافة نوع الخدمة',
+    'service_type_name' =>'اسم نوع الخدمة',
+    'service_type_description' =>' تفاصيل الخدمة',
+    'service_type_points' =>'النقاط',
+
+
     // Appointments
     'appointments' =>'مواعيد الحجوزات',
     'currentappointments' =>' المواعيد الحالية',
     'perviousappointments' =>'المواعيد السابقة ',
     'canceledappointments' =>'المواعيد الملغية',
     'notifications' =>' الإشعارات',
-   
+
     "sProcessing" => "تحميل",
     "sLengthMenu" => " اظهار  _MENU_  تسجيل",
    "sZeroRecords" => "صفر سجلات",
