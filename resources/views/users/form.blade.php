@@ -5,8 +5,7 @@
 
         @include('layouts.include.message')
 
-          {!! Form::open() !!}
-
+@csrf
                     {{-- name --}}
                     <div class="form-group">
                     <div class="form-group {{$errors->has('name') ? 'has-error' : ''}}">
@@ -27,7 +26,7 @@
                       <div class="form-group {{$errors->has('user_name') ? 'has-error' : ''}}">
 
                       {!! Form::label('user_name', trans('admin.user_name')) !!}
-                      {!! Form::text('user_name',old('user_name'),
+                      {!! Form::text('user_name',old('user_name') ?? $user->user_name,
                                    [ 'class' =>'form-control',
                                     // 'required' =>true,
                                     'placeholder' =>trans('admin.user_name'),
@@ -42,7 +41,7 @@
                     <div class="form-group">
                       <div class="form-group {{$errors->has('email') ? 'has-error' : ''}}">
                       {!! Form::label('email', trans('admin.email')) !!}
-                      {!! Form::email('email',old('email'),
+                      {!! Form::email('email',old('email') ?? $user->email,
                                    [ 'class' =>'form-control',
                                     // 'required' =>true,
                                     'placeholder' =>trans('admin.user_email'),
@@ -85,7 +84,7 @@
                     <div class="form-group">
                       <div class="form-group {{$errors->has('phone') ? 'has-error' : ''}}">
                       {!! Form::label('phone', trans('admin.user_phone')) !!}
-                      {!! Form::number('phone',old('name') ,
+                      {!! Form::number('phone',old('phone') ?? $user->phone,
                                    [ 'class' =>'form-control',
                                     // 'required' =>true,
                                     'placeholder' =>trans('admin.user_phone'),
@@ -113,7 +112,7 @@
                     <div class="form-group">
                       <div class="form-group {{$errors->has('code') ? 'has-error' : ''}}">
                       {!! Form::label('code', trans('admin.user_code')) !!}
-                      {!! Form::text('code',old('code'),
+                      {!! Form::text('code',old('code') ?? $user->code,
                                    [ 'class' =>'form-control',
                                     // 'required' =>true,
                                     'placeholder' =>trans('admin.user_code'),
@@ -127,7 +126,7 @@
                     {{-- notes --}}
                     <div class="form-group">
                       {!! Form::label('notes', trans('admin.user_notes')) !!}
-                      {!! Form::textarea('notes',old('notes'),
+                      {!! Form::textarea('notes',old('notes') ?? $user->notes,
                                    [ 'class' =>'form-control',
 
                                     'placeholder' =>trans('admin.user_notes'),
@@ -136,8 +135,6 @@
                       !!}
                     </div>
                 </div>
-				
-        {!! Form::close() !!}
 			</div>
 		</div>
 	</div>

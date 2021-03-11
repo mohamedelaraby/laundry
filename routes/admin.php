@@ -35,7 +35,7 @@ Route::group(['prefix'=> '/','middleware' => 'auth:web'],function(){
 
         Route::get('/', 'UserController@index')->name('admins.users.index');
         Route::get('/create', 'UserController@create')->name('admins.users.create');
-        Route::post('/', 'UserController@store')->name('admins.users.store');
+        Route::post('/store', 'UserController@store')->name('admins.users.store');
         Route::get('/edit/{id}', 'UserController@edit')->name('admins.users.edit');
         Route::post('/update/{id}', 'UserController@update')->name('admins.users.update');
         Route::post('/delete/{id}', 'UserController@destroy')->name('admins.users.destroy');

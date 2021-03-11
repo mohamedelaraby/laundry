@@ -44,11 +44,6 @@
 						</div>
 					</div>
 					<!--/div-->
-
-
-	<!-- Basic modal -->
-	@include('users.form')
-		<!-- End Basic modal -->
     </div>
     <!-- /.row -->
 </section>
@@ -59,10 +54,7 @@
 @endsection
 
 @push('scripts')
-
 {!! $dataTable->scripts() !!}
 @endpush
 
-@section('js')
-    @include('users.scripts')
-@endsection
+

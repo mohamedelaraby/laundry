@@ -33,22 +33,22 @@ class UserController extends Controller
          * Show create form the specified resource.
          *
          * @param  int  $id
-         * @return \Illuminate\Http\Response
-         */
-        public function create(User $user)
-        {
-            return view('users.create',compact('user'));
-        }
+        * @return \Illuminate\Http\Response
+        */
+    public function create(User $user)
+    {
+        return view('users.create',compact('user'));
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(UserCreateRequest $request)
+    {
 
-        /**
-         * Store a newly created resource in storage.
-         *
-         * @param  \Illuminate\Http\Request
-         * @return \Illuminate\Http\Response
-         */
-        public function store(UserCreateRequest $request)
-        {
-
+        dd($request);
 
         dd($this->UserData($request));
 
