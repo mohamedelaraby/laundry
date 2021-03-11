@@ -2,18 +2,55 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\InvoiceDataTable;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Invoice;
+use App\Repositories\InvoicesRepository;
 
 class InvoiceController extends Controller
 {
-        /**
-     * Display a listing of the resource.
+
+
+    /** @param $serviceRepository */
+    private $invoicesRepository;
+
+public function __construct(InvoicesRepository $invoicesRepository)
+{
+    $this->invoicesRepository = $invoicesRepository;
+}
+
+     /**
+     * Process datatables ajax request.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(InvoiceDataTable $dataTable)
     {
-        return view('settings.invoices.index');
+
+        return $dataTable->render('invoices.index',[
+            'title' => trans('admin.invoices'),
+            'id' => $dataTable->id,
+        ]);
     }
+
+
+
+    /**
+     *  show create form
+     */
+    public function create(Invoice $invoice){
+
+        // Get all invoices
+        $invoices = $this->invoicesRepository->all();
+
+        return view('invoices.create',compact('$invoice','invoices'));
+
+    }
+
+
+
+
+
+
+
 }

@@ -1,8 +1,10 @@
 <?php
 
+use App\Models\Appointment;
+use App\Models\Invoice;
 use Illuminate\Database\Seeder;
 
-class UserSeeder extends Seeder
+class AppointmentSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +13,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\User::class, 500)->create();
+        factory(Invoice::class, 500)->create();
     }
 }

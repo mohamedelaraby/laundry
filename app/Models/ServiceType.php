@@ -23,6 +23,16 @@ class ServiceType extends Model
         'service_id',
     ];
 
+ /**
+     * The attributes that are igonred in mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [
+        'created_at',
+        'updated_at',
+    ];
+
 /*
 |--------------------------------------------------------------------------
 | Relations

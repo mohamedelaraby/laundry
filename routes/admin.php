@@ -43,7 +43,7 @@ Route::group(['prefix'=> '/','middleware' => 'auth:web'],function(){
 
     /*
     |--------------------------------------------------------------------------
-    | Users Routes
+    | Services Routes
     |--------------------------------------------------------------------------
     */
     Route::group(['prefix'=> '/services',],function(){
@@ -64,7 +64,41 @@ Route::group(['prefix'=> '/','middleware' => 'auth:web'],function(){
     */
     Route::group(['prefix'=> '/appointments',],function(){
 
-        Route::get('/','AppointmentController@index')->name('appointments.index');
+        Route::get('/', 'AppointmentController@index')->name('admins.appointments.index');
+        Route::get('/previousappointments', 'AppointmentController@previousAppointments')->name('admins.appointments-previous.index');
+        Route::get('/create', 'AppointmentController@create')->name('admins.appointments.create');
+        Route::get('/edit/{id}', 'AppointmentController@edit')->name('admins.appointments.edit');
+        Route::post('/create', 'AppointmentController@create')->name('admins.appointments.store');
+        Route::post('/update/{id}', 'AppointmentController@update')->name('admins.appointments.update');
+        Route::post('/delete/{id}', 'AppointmentController@destroy')->name('admins.appointments.destroy');
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | invoices Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::group(['prefix'=> '/invoices',],function(){
+
+        Route::get('/', 'InvoiceController@index')->name('admins.invoices.index');
+        Route::get('/create', 'InvoiceController@create')->name('admins.invoices.create');
+        Route::get('/edit/{id}', 'InvoiceController@edit')->name('admins.invoices.edit');
+        Route::post('/create', 'InvoiceController@create')->name('admins.invoices.store');
+        Route::post('/update/{id}', 'InvoiceController@update')->name('admins.invoices.update');
+        Route::post('/delete/{id}', 'InvoiceController@destroy')->name('admins.appointments.destroy');
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | reports Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::group(['prefix'=> '/reports',],function(){
+
+        Route::get('/users', 'ReportController@users')->name('admins.reports.users');
+        Route::get('/invoices', 'ReportController@invoices')->name('admins.reports.invoices');
+        Route::get('/appointments', 'ReportController@appointments')->name('admins.reports.appointments');
+        Route::get('/services', 'ReportController@services')->name('admins.reports.services');
     });
     /*
     |--------------------------------------------------------------------------

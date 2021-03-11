@@ -15,8 +15,7 @@ class CreateAppointmentsTable extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('date_from');
-            $table->date('date_to');
+            $table->dateTime('due_at');
             $table->string('notes')->nullable();
 
             $table->softDeletes();

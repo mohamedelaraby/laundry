@@ -15,9 +15,9 @@ class AddForeignKeysToServiceTypesTable extends Migration
     {
         Schema::table('service_types', function (Blueprint $table) {
             $table->unsignedBigInteger('price_id')->after('points')->nullable();
-            $table->foreign('price_id')->references('id')->on('prices') ->onDelete('cascade');
-
             $table->unsignedBigInteger('service_id')->nullable();
+            
+            $table->foreign('price_id')->references('id')->on('prices') ->onDelete('cascade');
             $table->foreign('service_id')->references('id')->on('services') ->onDelete('cascade');
         });
     }
