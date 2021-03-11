@@ -2,10 +2,10 @@
 
 namespace App\DataTables;
 
-use App\Models\Appointment;
+use App\Models\Notification;
 use Yajra\DataTables\Services\DataTable;
 
-class ReportAppointmentsDatatable extends DataTable implements BaseDatatableInterface
+class NotificationDataTable extends DataTable implements BaseDatatableInterface
 {
     /**
      * Build DataTable class.
@@ -17,13 +17,13 @@ class ReportAppointmentsDatatable extends DataTable implements BaseDatatableInte
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('actions', 'reports.appointments.btn.actions')
+            ->addColumn('actions', 'notifications.btn.actions')
             ->rawColumns(['actions'])
-            ->editColumn('created_at',function(Appointment $appointment){
-                return $appointment->created_at->diffForHumans();
+            ->editColumn('due_at',function(Notification $notification){
+                return $notification->due_at->diffForHumans();
             })
-            ->editColumn('updated_at',function(Appointment $appointment){
-                return $appointment->updated_at->diffForHumans();
+            ->editColumn('updated_at',function(Notification $notification){
+                return $notification->updated_at->diffForHumans();
             });
 
     }
@@ -36,7 +36,7 @@ class ReportAppointmentsDatatable extends DataTable implements BaseDatatableInte
      */
     public function query()
     {
-        return Appointment::query();
+        return Notification::query();
     }
 
     /**
@@ -118,17 +118,12 @@ class ReportAppointmentsDatatable extends DataTable implements BaseDatatableInte
             [
                 'data' => 'due_at',
                 'name' => 'due_at',
-                'title' => trans('admin.due_at')
+                'title' => trans('admin.time-send')
             ],
             [
-                'data' => 'created_at',
-                'name' => 'created_at',
-                'title' => trans('admin.created_at')
-            ],
-            [
-                'data' => 'updated_at',
-                'name' => 'updated_at',
-                'title' => trans('admin.updated_at')
+                'data' => 'status',
+                'name' => 'status',
+                'title' => trans('admin.status')
             ],
             [
                 'data' => 'actions',

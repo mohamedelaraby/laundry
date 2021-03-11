@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\AppointmentDataTable;
+use App\DataTables\AppointmentsDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Repositories\AppointmentsRepository;
@@ -24,7 +24,7 @@ class AppointmentController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(AppointmentDataTable $dataTable)
+    public function index(AppointmentsDataTable $dataTable)
     {
 
         return $dataTable->render('appointments.index',[

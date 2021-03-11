@@ -3,9 +3,13 @@
 namespace App\DataTables;
 
 use App\Models\Appointment;
+use Yajra\DataTables\Html\Button;
+use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Html\Editor\Editor;
+use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class AppointmentDataTable extends DataTable implements BaseDatatableInterface
+class AppointmentsDatatable extends DataTable implements BaseDatatableInterface
 {
     /**
      * Build DataTable class.
@@ -25,18 +29,17 @@ class AppointmentDataTable extends DataTable implements BaseDatatableInterface
             ->editColumn('updated_at',function(Appointment $appointment){
                 return $appointment->updated_at->diffForHumans();
             });
-
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\ServiceDataTable $model
+     * @param \App\Models\AppointmentsDatatable $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query()
     {
-        return Appointment::query();
+         return Appointment::query();
     }
 
     /**
@@ -46,15 +49,14 @@ class AppointmentDataTable extends DataTable implements BaseDatatableInterface
      */
     public function html()
     {
-
         return $this->builder()
-        ->setTableId('servicedatatable-table')
-        ->columns($this->getColumns())
+                    ->setTableId('appointmentsdatatable-table')
+                    ->columns($this->getColumns())
         ->minifiedAjax()
         ->parameters($this->getParameters());
     }
 
-     /**
+    /**
      * Get Parameters.
      *
      * @return array
@@ -142,6 +144,6 @@ class AppointmentDataTable extends DataTable implements BaseDatatableInterface
      */
     protected function filename()
     {
-        return 'Service_' . date('YmdHis');
+        return 'Appointments_' . date('YmdHis');
     }
 }

@@ -48,7 +48,7 @@ class InvoiceDataTable extends DataTable implements BaseDatatableInterface
     {
 
         return $this->builder()
-        ->setTableId('servicedatatable-table')
+        ->setTableId('invoicedatatable-table')
         ->columns($this->getColumns())
         ->minifiedAjax()
         ->parameters($this->getParameters());

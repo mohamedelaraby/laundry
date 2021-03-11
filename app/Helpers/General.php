@@ -86,10 +86,12 @@ if (!function_exists('lang')) {
  */
 if(!function_exists('uploadImage')){
     function uploadImage($folder,$image){
-     $image->store('/',$folder);
-     $fileName = $image->hashName();
-     $path = 'images/' . $folder . '/'  .$fileName;
-     return $path;
+        if($image){
+            $image->store('/',$folder);
+            $fileName = $image->hashName();
+            $path = 'images/' . $folder . '/'  .$fileName;
+            return $path;
+        }
     }
 }
 

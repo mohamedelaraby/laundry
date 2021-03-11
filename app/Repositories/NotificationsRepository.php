@@ -5,7 +5,7 @@ namespace App\Repositories;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Support\Facades\DB;
 
-class UsersRepository Implements BaseRepositoryInterface
+class NotificationsRepository Implements BaseRepositoryInterface
 {
     /**
      * Get all reocrds
@@ -13,7 +13,7 @@ class UsersRepository Implements BaseRepositoryInterface
      * @param array
      */
     public function all(){
-        return DB::table('users')->get();
+        return DB::table('notifications')->get();
     }
 
     /**

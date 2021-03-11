@@ -14,10 +14,10 @@ class InvoiceController extends Controller
     /** @param $serviceRepository */
     private $invoicesRepository;
 
-public function __construct(InvoicesRepository $invoicesRepository)
-{
-    $this->invoicesRepository = $invoicesRepository;
-}
+    public function __construct(InvoicesRepository $invoicesRepository)
+    {
+        $this->invoicesRepository = $invoicesRepository;
+    }
 
      /**
      * Process datatables ajax request.

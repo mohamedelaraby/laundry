@@ -28,6 +28,18 @@ class UserController extends Controller
         ]);
     }
 
+
+      /**
+         * Show create form the specified resource.
+         *
+         * @param  int  $id
+         * @return \Illuminate\Http\Response
+         */
+        public function create(User $user)
+        {
+            return view('users.create',compact('user'));
+        }
+
         /**
          * Store a newly created resource in storage.
          *
@@ -50,6 +62,8 @@ class UserController extends Controller
         return response()->json();
 
         }
+
+
 
         /**
          * Display the specified resource.
@@ -89,7 +103,7 @@ class UserController extends Controller
          */
         public function update(Request $request, $id)
         {
-            
+
             try{
                 $language = Language::find($id);
                 if(!$language){

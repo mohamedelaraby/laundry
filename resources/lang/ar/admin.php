@@ -68,13 +68,10 @@ return [
     'record_deleted'=>' تم حذف البيانات بنجاح',
     'delete_this'=>'هل انت موافق علي حذف :name ؟',
 
-//    // Users
-   'create_user'=>'اضافة عضو',
-   'users'=>'حسابات الاعضاء',
-   'user'=>' عضو',
-   'company'=>' شركة',
-   'vendor'=>' متجر',
-   'level'=>' مستوي العضوية',
+    // Users
+   'adduser'=>'اضافة عضو',
+   'users'=>'حسابات المستخدمين',
+
 
    'user_id'=>'رقم العميل',
    'username'=>' اسم المستخدم',
@@ -107,6 +104,12 @@ return [
     'service_type_description' =>' تفاصيل الخدمة',
     'service_type_points' =>'النقاط',
 
+
+    // Side bar
+    'report-users' =>'تقارير العملاء',
+    'report-invoices' =>'تقارير الفواتير',
+    'report-appointments' =>'تقارير المواعيد',
+    'report-services' =>'تقارير الخدمات',
 
     // Appointments
     'appointments' =>'مواعيد الحجوزات',

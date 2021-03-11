@@ -1,11 +1,7 @@
-<!-- Create modal -->
-	<div class="modal" id="modaldemo8">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content modal-content-demo">
-				<div class="modal-header">
-					<h6 class="modal-title">{{ trans('admin.adduser') }}</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
-				</div>
-				<div class="modal-body">
+
+	<div class="modal-header">
+		<h6 class="modal-title">{{ trans('admin.adduser') }}</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+	</div>
 
         @include('layouts.include.message')
 
@@ -15,7 +11,7 @@
                     <div class="form-group">
                     <div class="form-group {{$errors->has('name') ? 'has-error' : ''}}">
                       {!! Form::label('name', trans('admin.user_name')) !!}
-                      {!! Form::text('name',old('name'),
+                      {!! Form::text('name',old('name') ?? $user->name,
                                    [ 'class' =>'form-control',
                                     // 'required' =>true,
                                     'placeholder' =>trans('admin.user_name'),
@@ -140,10 +136,7 @@
                       !!}
                     </div>
                 </div>
-				<div class="modal-footer">
-					<button class="btn ripple btn-primary" type="submit" id="save_btn">{{ trans('admin.save') }}</button>
-					<button class="btn ripple btn-secondary" data-dismiss="modal" type="button">{{ trans('admin.close') }}</button>
-				</div>
+				
         {!! Form::close() !!}
 			</div>
 		</div>

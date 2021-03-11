@@ -34,6 +34,7 @@ Route::group(['prefix'=> '/','middleware' => 'auth:web'],function(){
     Route::group(['prefix'=> '/users',],function(){
 
         Route::get('/', 'UserController@index')->name('admins.users.index');
+        Route::get('/create', 'UserController@create')->name('admins.users.create');
         Route::post('/', 'UserController@store')->name('admins.users.store');
         Route::get('/edit/{id}', 'UserController@edit')->name('admins.users.edit');
         Route::post('/update/{id}', 'UserController@update')->name('admins.users.update');
@@ -107,7 +108,7 @@ Route::group(['prefix'=> '/','middleware' => 'auth:web'],function(){
     */
     Route::group(['prefix'=> '/notifications',],function(){
 
-        Route::get('/','NotificationController@index')->name('notifications.index');
+        Route::get('/','NotificationController@index')->name('admins.notifications');
     });
 
     /*
