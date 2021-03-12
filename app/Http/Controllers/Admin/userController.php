@@ -6,6 +6,7 @@ use App\DataTables\UserDatatable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserCreateRequest;
 use App\Models\User;
+use App\Repositories\UsersRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -13,6 +14,14 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+
+     /** @param $usersRepository */
+     private $usersRepository;
+
+     public function __construct(UsersRepository $usersRepository)
+     {
+         $this->usersRepository = $usersRepository;
+     }
 
      /**
      * Process datatables ajax request.
@@ -48,18 +57,13 @@ class UserController extends Controller
     public function store(UserCreateRequest $request)
     {
 
-        dd($request);
+        $users =  $this->usersRepository->create($this->UserData($request));
 
-        dd($this->UserData($request));
-
-        $users =  User::create($this->UserData($request));
-
-        dd($users);
         // Session message
         session()->flash('add',trans('admin.added_record'));
 
         // Redirect back
-        return response()->json();
+        return view('users.index');
 
         }
 
@@ -156,7 +160,7 @@ class UserController extends Controller
  */
 private function codeHash($request){
     if($request->code){
-        return Hash::make($request->code);
+        return $request->code;
     } else {
         return Str::random(10);
     }
@@ -183,6 +187,8 @@ private function uploadUserImage($request){
      *@return string
     */
     private function UserData($request){
+
+      
         return [
             'name' =>$request->name,
             'user_name' =>$request->user_name,

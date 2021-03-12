@@ -25,4 +25,17 @@ class HomeController extends Controller
     {
         return view('dashboard');
     }
+    
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function changeLangauge($lang)
+    {
+
+    session()->has('lang')? session()->forget('lang') : ' ';
+    $lang = in_array($lang, ['ar','en']) ?  session()->put('lang', $lang):session()->put('lang', '');
+    return back();
+    }
 }

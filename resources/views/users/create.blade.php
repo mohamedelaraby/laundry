@@ -1,6 +1,6 @@
 @extends('layouts.index')
 @section('title')
-{{ trans('admin.addusers') }}
+{{ trans('admin.adduser') }}
 @stop
 @section('page-header')
 				<!-- breadcrumb -->
@@ -27,22 +27,19 @@
 
 			</div>
 			<div class="card-body">
-
-            @include('layouts.include.message')
-
-          {!! Form::open(['enctype' =>'multipart/form-data']) !!}
+          {!! Form::open(['enctype' =>'multipart/form-data','method' => 'POST', 'route' => 'admins.users.store' ,'id' => 'save_form']) !!}
 
                 @include('users.form')
 
-                <div class="form-actions">
-                    <button class="btn btn-primary" id="save_btn">
+                
+                    <button class="btn btn-primary">
                         <i class="la la-check-square-o"></i> {{ trans('admin.save') }}
                     </button>
-                    <button type="button" class="btn btn-warning mr-1"
+                    <button type="submit" class="btn btn-warning mr-1"
                             onclick="history.back();">
                         <i class="ft-x"></i> {{ trans('admin.back') }}
                     </button>
-                </div>
+                
         {!! Form::close() !!}
 			</div>
 		</div>
@@ -50,72 +47,4 @@
 @endsection
 
 
-@section('js')
-    <script>
 
-<script type="text/javascript">
-
-    // Insert
-    $(document).ready(function() {
-
-        $('#save_btn').on('click', function(e) {
-
-            e.stopPropagation();
-
-          var name = $('#name').val();
-          var user_name = $('#user_name').val();
-          var email = $('#email').val();
-          var password = $('#password').val();
-          var confirmpassword = $('#confirmpassword').val();
-          var phone = $('#phone').val();
-          var img = $('#img').val();
-          var code = $('#code').val();
-          var notes = $('#notes').val();
-
-
-
-          if(name!=""
-            && user_name != ""
-            && email != ""
-            && phone != ""
-            && code != ""
-            && password != ""){
-              $.ajax({
-                  url: "{{route('admins.users.store')}}",
-                  type: "POST",
-
-                  data: {
-                      _token:{{csrf_token()}},
-                      name: name,
-                      user_name: user_name,
-                      email: email,
-                      password: password,
-                      confirmpassword: confirmpassword,
-                      phone: phone,
-                      img: img,
-                      code: code,
-                      notes: notes,
-                  },
-                  cache: false,
-                   success: function(dataResult){
-                      console.log(dataResult);
-                      var dataResult = JSON.parse(dataResult);
-                      if(dataResult.statusCode==200){
-                        return dataResult;
-                      }
-                      else if(dataResult.statusCode==201){
-                         alert("Error occured !");
-                      }
-
-                  }
-              });
-          }
-          else{
-            e.preventDefault();
-              alert('Please fill all the field !');
-          }
-            });
-    });
-
-    </script>
-@endsection

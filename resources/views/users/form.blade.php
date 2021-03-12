@@ -1,11 +1,9 @@
 
 	<div class="modal-header">
-		<h6 class="modal-title">{{ trans('admin.adduser') }}</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+		<h6 class="modal-title">{{ trans('admin.adduser') }}</h6>
 	</div>
 
-        @include('layouts.include.message')
-
-@csrf
+  {{ csrf_field() }}
                     {{-- name --}}
                     <div class="form-group">
                     <div class="form-group {{$errors->has('name') ? 'has-error' : ''}}">

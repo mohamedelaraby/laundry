@@ -2,10 +2,11 @@
 
 namespace App\Repositories;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Support\Facades\DB;
 
-class UsersRepository Implements BaseRepositoryInterface
+class UsersRepository 
 {
     /**
      * Get all reocrds
@@ -38,8 +39,9 @@ class UsersRepository Implements BaseRepositoryInterface
     /**
      * Store new  Record
      */
-    public function create(){
-
+   
+    public function create($userdata){
+        return User::create($userdata);
     }
 
     /**

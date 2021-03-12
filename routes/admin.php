@@ -3,16 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 
-
-
-
-Route::get('lang/{lang}', function ($lang) {
-    session()->has('lang')? session()->forget('lang') : ' ';
-    $lang = in_array($lang, ['ar','en']) ?  session()->put('lang', $lang):session()->put('lang', '');
-    return back();
-});
-
-
 Route::group(['prefix'=> '/','middleware' => 'auth:web'],function(){
 
     Route::get('/', 'Admin\LoginController@index');

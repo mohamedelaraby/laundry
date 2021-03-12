@@ -132,11 +132,11 @@ class UserDatatable extends DataTable
                 'name' => 'name',
                 'title' => trans('admin.user_name')
             ],
-            [
-                'data' => 'actions',
-                'name' => 'Options',
-                'title' => trans('admin.options')
-            ],
+            // [
+            //     'data' => 'actions',
+            //     'name' => 'Options',
+            //     'title' => trans('admin.options')
+            // ],
             [
                 'data' => 'phone',
                 'name' => 'phone',
@@ -155,13 +155,13 @@ class UserDatatable extends DataTable
 
 
 
-            // Column::computed('actions')
-            // ->title(trans('admin.options'))
-            // ->exportable(false)
-            // ->printable(false)
-            // ->orderable(false)
-            // ->width(20)
-            // ->addClass('text-center'),
+            Column::computed('actions')
+            ->title(trans('admin.options'))
+            ->exportable(false)
+            ->printable(false)
+            ->orderable(false)
+            ->width(20)
+            ->addClass('text-center'),
 
 
         ];
