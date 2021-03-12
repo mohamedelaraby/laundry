@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\UserDatatable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use App\Repositories\UsersRepository;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -44,8 +46,9 @@ class UserController extends Controller
          * @param  int  $id
         * @return \Illuminate\Http\Response
         */
-    public function create(User $user)
+    public function create()
     {
+        $user = new User;
         return view('users.create',compact('user'));
     }
     /**
@@ -88,14 +91,14 @@ class UserController extends Controller
          */
         public function edit($id)
         {
-            $user = User::find($id);
+            $user =  $this->usersRepository->findById($id);
 
             if(!$user){
                 session()->flash('error',trans('auth.not_found'));
                 return view('users.index');
             }
 
-            return view('users.edit',compact('user'),['title'=>trans('admin.edit')]);
+            return view('users.edit',compact('user','id'),['title'=>trans('admin.edit')]);
         }
 
         /**
@@ -105,25 +108,25 @@ class UserController extends Controller
          * @param  int  $id
          * @return \Illuminate\Http\Response
          */
-        public function update(Request $request, $id)
+        public function update(UserUpdateRequest $request, $id)
         {
 
-            try{
-                $language = Language::find($id);
-                if(!$language){
-                    show_message('error',trans('auth.failed'));
-                    return redirect()->route('admin.languages.edit',$id);
-                }
+           
+            $user =  $this->usersRepository->findById($id);
 
-            //Update language
-            $language->update($request->except("_token"));
-            show_message('msg',trans('auth.update'));
-            return redirect()->route('admin.languages');
-
-            } catch (Exception $exception){
-                    show_message('error',trans('auth.add'));
-                    return redirect()->route('admin.languages');
+    
+            if(!$user){
+                session()->flash('error',trans('admin.not_found'));
+                return redirect()->route('admins.users.edit',$id);
             }
+
+            //Update User
+            $userUpdate = $this->usersRepository->update($user,$request);
+
+
+            session()->flash('add',trans('admin.updated'));
+            return redirect()->route('admins.users.index');
+            
         }
 
         /**
@@ -134,14 +137,26 @@ class UserController extends Controller
          */
         public function destroy($id)
         {
-            // Find User
-            User::find($id)->delete();
+            
+            try{
+                // check for user
+                $user =  $this->usersRepository->findById($id);
 
-            // session message
-            session()->flash('msg',trans('User.record_deleted'));
-
-            // Redirect back
-            return redirect(User_url('User'));
+                if(!$user){
+                    session()->flash('add',trans('admin.notfound'));
+                    return redirect()->route('admins.users.index');
+                }
+    
+                //delete user
+               $deleteUser = $this->usersRepository->delete($id);
+                session()->flash('add',trans('admin.deleted'));
+                return redirect()->route('admins.users.index');
+    
+            } catch (Exception $exception){
+                session()->flash('add',trans('admin.notfound'));
+                return redirect()->route('admins.users.index');
+            }
+        
 
         }
 
