@@ -40,15 +40,20 @@ return [
 
 
 
+   
+
     'id'=>'الرقم التسلسلي',
     'admin_id'=>'رقم المشرف',
     'admin_name'=>'اسم المشرف',
     'admin_email'=>'ايميل المشرف',
     'created_at'=>' انشئ في',
     'updated_at'=>'تم التعديل في',
+    'updated'=>'تم التعديل بنجاح',
+    'notfound'=>'غير موجود',
     'save'=>' حفظ ',
     'edit'=>' تعديل ',
     'delete'=>'حذف',
+    'deleted'=>'تم الحذف بنجاح',
     'delete_all'=>'حذف السجلات',
     'close'=>'الغاء',
     'back'=>'العودة الي القائمة',
@@ -71,6 +76,7 @@ return [
     // Users
    'adduser'=>'اضافة عضو',
    'users'=>'حسابات المستخدمين',
+   'user'=>'العميل',
 
 
    'user_id'=>'رقم العميل',
@@ -116,7 +122,17 @@ return [
     'currentappointments' =>' المواعيد الحالية',
     'perviousappointments' =>'المواعيد السابقة ',
     'canceledappointments' =>'المواعيد الملغية',
+    'pending'=>'في الانتظار',
+    'current'=>'الآن',
+    'canceled'=>'تم الالغاء',
+    'status'=>'حالة الحجز',
+    'due_at'=>'موعد الحجز',
+    'car'=>'السيارة',
+    'service'=>'الخدمة المحجوزة',
+
+
     'notifications' =>' الإشعارات',
+
 
     "sProcessing" => "تحميل",
     "sLengthMenu" => " اظهار  _MENU_  تسجيل",

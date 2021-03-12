@@ -16,8 +16,8 @@ class Appointment extends Model
      */
     protected $fillable = [
         'id',
-         'date_from',
-         'date_to',
+         'due_at',
+         'status',
         'notes',
         'user_id',
         'car_id',
@@ -26,6 +26,33 @@ class Appointment extends Model
     ];
 
 
+    // status vars
+    const STATUS_PENDING = 0;
+   const STATUS_ACTIVE = 1;
+   const STATUS_CANCELED = 2;
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Attributes inspectors
+|--------------------------------------------------------------------------
+*/
+
+ /**
+     *  Change status attributes name
+     *
+     *  @return void
+     */
+    public function getStatus(){
+        if($this->status == 0){
+            return trans('admin.pending');
+        } else if($this->status == 1){
+            return trans('admin.current');
+        } else {
+            return trans('admin.canceled');
+        }
+      }
 
 
 /*
@@ -46,19 +73,9 @@ public function user(){
 /**
  * Car for this appointment
  *
- * @return \Illuminate\Database\Eloquent\Relations\HasMany
  */
 public function car(){
-    return $this->hasOne(Car::class);
-}
-
-/**
- * points for this appointment
- *
- * @return \Illuminate\Database\Eloquent\Relations\HasMany
- */
-public function points(){
-    return $this->hasMany(Point::class);
+    return $this->belongsTo(Car::class);
 }
 
 /**
@@ -68,6 +85,17 @@ public function points(){
  */
 public function notification(){
     return $this->hasOne(Notification::class);
+}
+
+
+
+
+/**
+ * notifications for this appointment
+ *
+ */
+public function service(){
+    return $this->hasOne(Service::class);
 }
 
 

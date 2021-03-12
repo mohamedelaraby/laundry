@@ -5,8 +5,6 @@ namespace App\DataTables;
 use App\Models\User;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class UserDatatable extends DataTable
@@ -132,11 +130,7 @@ class UserDatatable extends DataTable
                 'name' => 'name',
                 'title' => trans('admin.user_name')
             ],
-            // [
-            //     'data' => 'actions',
-            //     'name' => 'Options',
-            //     'title' => trans('admin.options')
-            // ],
+          
             [
                 'data' => 'phone',
                 'name' => 'phone',

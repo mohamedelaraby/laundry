@@ -2,11 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Models\Appointment;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Support\Facades\DB;
 
-class AppointmentsRepository
+class CarsRepository Implements BaseRepositoryInterface
 {
     /**
      * Get all reocrds
@@ -14,7 +13,7 @@ class AppointmentsRepository
      * @param array
      */
     public function all(){
-        return DB::table('appointments')->get();
+        return DB::table('cars')->get();
     }
 
     /**
@@ -23,8 +22,7 @@ class AppointmentsRepository
      * @param $id
      */
     public function findById($id){
-        $appointment = Appointment::find($id);
-        return $appointment;
+
     }
 
 
@@ -44,11 +42,11 @@ class AppointmentsRepository
 
     }
 
-     /**
+    /**
      * Update existing Record
      */
-    public function update($appointment,$data){
-        return  $this->findById($appointment->id)->update($data);
+    public function update(){
+
     }
 
     /**
@@ -57,7 +55,7 @@ class AppointmentsRepository
      * @param $id
      */
     public function delete($id){
-        return $this->findById($id)->delete();
+
     }
 
 

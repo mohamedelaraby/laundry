@@ -17,7 +17,6 @@ class Car extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
          'type',
           'color',
           'notes',
@@ -46,10 +45,9 @@ public function users(){
 /**
  * appointments car have
  *
- * @return \Illuminate\Database\Eloquent\Relations\HasMany
  */
-public function appointment(){
-    return $this->belongsTo(appointments::class);
+public function appointments(){
+    return $this->belongsToMany(Appointment::class);
 }
 
 

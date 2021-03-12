@@ -10,12 +10,26 @@
  *  Get current user
  */
 
+use App\Models\Appointment;
 use Illuminate\Support\Facades\Auth;
 
 if (!function_exists('currentUser')) {
     function currentUser()
     {
         return Auth::user();
+    }
+}
+
+/**
+ *  Get appointment status
+ */
+
+if (!function_exists('appointmentStatus')) {
+    function appointmentStatus()
+    {
+       $appointment = new Appointment();
+
+        return  $appointment->getStatus();
     }
 }
 

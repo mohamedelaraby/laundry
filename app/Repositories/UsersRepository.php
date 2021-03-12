@@ -50,10 +50,7 @@ class UsersRepository
      * Update existing Record
      */
     public function update($user,$request){
-    
-    
         return  $this->findById($user->id)->update($this->UserData($user,$request));
-      
     }
 
     /**

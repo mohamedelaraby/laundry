@@ -14,5 +14,6 @@ $factory->define(Service::class, function (Faker $faker) {
         'max_time' => $faker->time(),
         // 'type_id' => $faker->numberBetween(1,500),
         'user_id' => $faker->numberBetween(1,500),
+        'appointment_id' => $faker->numberBetween(1,500),
     ];
 });

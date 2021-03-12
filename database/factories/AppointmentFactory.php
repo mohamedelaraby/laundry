@@ -3,6 +3,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Models\Appointment;
+use Carbon\Carbon;
 use Faker\Generator as Faker;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -19,10 +20,16 @@ use Illuminate\Support\Str;
 */
 
 $factory->define(Appointment::class, function (Faker $faker) {
+   $status =  [
+    Appointment::STATUS_ACTIVE,
+    Appointment::STATUS_PENDING,
+    Appointment::STATUS_CANCELED,
+   ];
+
     return [
 
-        'due_at' => $faker->dateTime(),
-        // 'type_id' => $faker->numberBetween(1,500),
+        'due_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        'status' =>$status[rand(0,2)],
         'user_id' => $faker->numberBetween(1,500),
         'car_id' => $faker->numberBetween(1,4),
         'service_id' => $faker->numberBetween(1,500),

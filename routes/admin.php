@@ -28,7 +28,7 @@ Route::group(['prefix'=> '/','middleware' => 'auth:web'],function(){
         Route::post('/store', 'UserController@store')->name('admins.users.store');
         Route::get('/edit/{id}', 'UserController@edit')->name('admins.users.edit');
         Route::post('/update/{id}', 'UserController@update')->name('admins.users.update');
-        Route::post('/delete/{id}', 'UserController@destroy')->name('admins.users.destroy');
+        Route::delete('/delete/{id}', 'UserController@destroy')->name('admins.users.destroy');
 
     });
 
@@ -56,12 +56,9 @@ Route::group(['prefix'=> '/','middleware' => 'auth:web'],function(){
     Route::group(['prefix'=> '/appointments',],function(){
 
         Route::get('/', 'AppointmentController@index')->name('admins.appointments.index');
-        Route::get('/previousappointments', 'AppointmentController@previousAppointments')->name('admins.appointments-previous.index');
-        Route::get('/create', 'AppointmentController@create')->name('admins.appointments.create');
         Route::get('/edit/{id}', 'AppointmentController@edit')->name('admins.appointments.edit');
-        Route::post('/create', 'AppointmentController@create')->name('admins.appointments.store');
         Route::post('/update/{id}', 'AppointmentController@update')->name('admins.appointments.update');
-        Route::post('/delete/{id}', 'AppointmentController@destroy')->name('admins.appointments.destroy');
+        Route::delete('/delete/{id}', 'AppointmentController@destroy')->name('admins.appointments.destroy');
     });
 
     /*
@@ -76,7 +73,7 @@ Route::group(['prefix'=> '/','middleware' => 'auth:web'],function(){
         Route::get('/edit/{id}', 'InvoiceController@edit')->name('admins.invoices.edit');
         Route::post('/create', 'InvoiceController@create')->name('admins.invoices.store');
         Route::post('/update/{id}', 'InvoiceController@update')->name('admins.invoices.update');
-        Route::post('/delete/{id}', 'InvoiceController@destroy')->name('admins.appointments.destroy');
+        Route::post('/delete/{id}', 'InvoiceController@destroy')->name('admins.invoices.destroy');
     });
 
     /*
