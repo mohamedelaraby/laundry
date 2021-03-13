@@ -12,7 +12,7 @@ $factory->define(Service::class, function (Faker $faker) {
         'name' => $faker->name,
         'min_time' => $faker->time(),
         'max_time' => $faker->time(),
-        // 'type_id' => $faker->numberBetween(1,500),
+        'type_id' => $faker->numberBetween(1,500),
         'user_id' => $faker->numberBetween(1,500),
         'appointment_id' => $faker->numberBetween(1,500),
     ];

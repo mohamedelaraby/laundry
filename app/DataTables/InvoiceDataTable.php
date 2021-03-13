@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Invoice;
+use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
 class InvoiceDataTable extends DataTable implements BaseDatatableInterface
@@ -17,14 +18,18 @@ class InvoiceDataTable extends DataTable implements BaseDatatableInterface
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('actions', 'appointments.btn.actions')
-            ->rawColumns(['actions']);
-            // ->editColumn('due_at',function(Invoice $invoice){
-            //     return $invoice->due_at->diffForHumans();
-            // })
-            // ->editColumn('updated_at',function(Invoice $invoice){
-            //     return $invoice->updated_at->diffForHumans();
-            // });
+            ->addColumn('actions', 'invoices.btn.actions')
+            ->rawColumns(['actions'])
+            ->editColumn('release_date',function(Invoice $invoice){
+                return $invoice->release_date;
+            })->editColumn('expire_date',function(Invoice $invoice){
+                return $invoice->expire_date;
+            })
+            ->editColumn('updated_at',function(Invoice $invoice){
+                return $invoice->updated_at->diffForHumans();
+            }) ->addColumn('invoice_user',function(Invoice $invoice){
+                return $invoice->user;
+            });
 
     }
 
@@ -116,21 +121,33 @@ class InvoiceDataTable extends DataTable implements BaseDatatableInterface
                 'title' => trans('admin.id')
             ],
             [
-                'data' => 'due_at',
-                'name' => 'due_at',
-                'title' => trans('admin.invocie.time')
+                'data' => 'release_date',
+                'name' => 'release_date',
+                'title' => trans('admin.releaseDate')
             ],
             [
-                'data' => 'due_at',
-                'name' => 'due_at',
-                'title' => trans('admin.invocie')
+                'data' => 'expire_date',
+                'name' => 'expire_date',
+                'title' => trans('admin.expireDate')
             ],
             [
-                'data' => 'actions',
-                'name' => 'Options',
-                'title' => trans('admin.options')
+                'data' => 'code',
+                'name' => 'code',
+                'title' => trans('admin.user_code')
+            ],
+            [
+                'data' => 'invoice_user',
+                'name' => 'invoice_user',
+                'title' => trans('admin.invoice_user')
             ],
 
+            Column::computed('actions')
+            ->title(trans('admin.options'))
+            ->exportable(false)
+            ->printable(false)
+            ->orderable(false)
+            ->width(10)
+            ->addClass('text-center'),
 
         ];
     }

@@ -120,7 +120,7 @@ class AppointmentController extends Controller
         public function update(AppointmentUpdateRequest $request, $id)
         {
 
-            
+            try{
             $service_id = '';
             $car_id = '';
             $user_id = '';
@@ -152,7 +152,11 @@ class AppointmentController extends Controller
             //Update User
             $appointmentUpdated = $this->appointmentsRepository
                 ->update($appointment,$this->appointmentData($due_at,$status,$user_id,$car_id,$service_id));
-
+            
+            } catch (Exception $exception){
+                session()->flash('error',trans('admin.notfound'));
+                return redirect()->route('admins.appointments.index');
+            }
 
             session()->flash('msg',trans('admin.updated'));
             return redirect()->route('admins.appointments.index');

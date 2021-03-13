@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddForeignKeysToInvoicesTable extends Migration
+class AddExpireDateColumnToInvoicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +14,9 @@ class AddForeignKeysToInvoicesTable extends Migration
     public function up()
     {
         Schema::table('invoices', function (Blueprint $table) {
-            $table->unsignedBigInteger('service_id')->before('created_at')->nullable();
-            $table->unsignedBigInteger('user_id')->before('created_at')->nullable();
-            
-            $table->foreign('service_id')->references('id')->on('users') ->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users') ->onDelete('cascade');
-
+            $table->dropColumn('due_at');
+            $table->dateTime('release_date')->after('code');
+            $table->dateTime('expire_date')->after('release_date');
         });
     }
 

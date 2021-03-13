@@ -2,10 +2,8 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\Appointment;
 use App\Models\Invoice;
 use Faker\Generator as Faker;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /*
@@ -22,10 +20,11 @@ use Illuminate\Support\Str;
 $factory->define(Invoice::class, function (Faker $faker) {
     return [
 
-        // 'due_at' => $faker->dateTime(),
-        // // 'type_id' => $faker->numberBetween(1,500),
-        // 'user_id' => $faker->numberBetween(1,500),
+        'release_date' => $faker->dateTime(),
+        'expire_date' => $faker->dateTime(),
+        'code' => Str::random(10),
+        'user_id' => $faker->numberBetween(1,500),
         // 'car_id' => $faker->numberBetween(1,4),
-        // 'service_id' => $faker->numberBetween(1,500),
+        'service_id' => $faker->numberBetween(1,500),
     ];
 });
