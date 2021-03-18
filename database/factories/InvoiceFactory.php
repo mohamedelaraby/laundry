@@ -23,8 +23,8 @@ $factory->define(Invoice::class, function (Faker $faker) {
         'release_date' => $faker->dateTime(),
         'expire_date' => $faker->dateTime(),
         'code' => Str::random(10),
-        'user_id' => $faker->numberBetween(1,500),
+        // 'user_id' => $faker->numberBetween(1,500),
         // 'car_id' => $faker->numberBetween(1,4),
-        'service_id' => $faker->numberBetween(1,500),
+        // 'service_id' => $faker->numberBetween(1,500),
     ];
 });

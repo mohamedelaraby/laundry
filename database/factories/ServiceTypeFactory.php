@@ -13,6 +13,6 @@ $factory->define(ServiceType::class, function (Faker $faker) {
         'description' => $faker->text(120),
         'points' => $faker->numberBetween(1,50),
         'price_id' => $faker->numberBetween(1,50),
-        // 'service_id' => $faker->numberBetween(1,500),
+        'service_id' => $faker->numberBetween(1,500),
     ];
 });

@@ -16,6 +16,7 @@
         "laravel/ui": "1.0.*",
         "laravelcollective/html": "^6.2",
         "nwidart/laravel-modules": "^8.2",
+        "tymon/jwt-auth": "^1.0",
         "yajra/laravel-datatables": "^1.5",
         "yajra/laravel-datatables-oracle": "~9.0"
     },

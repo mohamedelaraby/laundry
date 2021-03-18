@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class UsersRepository 
+class UsersRepository
 {
     /**
      * Get all reocrds
@@ -16,6 +16,16 @@ class UsersRepository
      */
     public function all(){
         return DB::table('users')->get();
+    }
+
+    /**
+     * Get all reocrds
+     *
+     * @param array
+     */
+    public function findItem(){
+        $user = User::get();
+        return $user->services();
     }
 
     /**
@@ -41,7 +51,7 @@ class UsersRepository
     /**
      * Store new  Record
      */
-   
+
     public function create($userdata){
         return User::create($userdata);
     }
@@ -70,8 +80,8 @@ class UsersRepository
      */
     public function isPassword($user, $request){
         return $request->password ? bcrypt($request->password) : $user->password;
-    } 
-    
+    }
+
     /**
      * Get user data
      *
@@ -80,7 +90,7 @@ class UsersRepository
     */
     private function UserData($user,$request){
 
-      
+
         return [
             'name' =>$request->name,
             'user_name' =>$request->user_name,

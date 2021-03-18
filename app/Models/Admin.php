@@ -2,14 +2,38 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Admin extends Model
+class Admin extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
+    // Rest omitted for brevity
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
     protected $table = 'admins';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -17,12 +41,17 @@ class Admin extends Model
      */
     protected $fillable = [
         'name',
-        'email',
-        'password',
-        'img',
-        'notes',
-        'created_at',
-        'updated_at',
+        'user_name',
+         'email',
+          'password',
+          'phone',
+          'img',
+          'code',
+          'notes',
+          'created_by',
+          'point_id',
+          'car_id',
+          'notification_id',
     ];
 
     /**

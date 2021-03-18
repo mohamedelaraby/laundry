@@ -30,4 +30,9 @@ return [
     'phone-unique' => ' رقم الموبايل موجود بالفعل',
     'password-required' => 'كلمة المرور مطلوبة',
 
+    // APi syllbus
+    'tokenInvalid' => 'INVALID_TOKEN',
+    'tokenExpired' => 'EXPIRED_TOKEN',
+    'tokenNotFound' => 'TOKEN_NOTFOUND',
+
 ];
