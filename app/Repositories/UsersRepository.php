@@ -17,6 +17,15 @@ class UsersRepository
     public function all(){
         return DB::table('users')->get();
     }
+    
+    /**
+     * Get specific number of  reocrds
+     *
+     * @param array
+     */
+    public function paginate($number){
+        return User::paginate($number);
+    }
 
     /**
      * Get all reocrds
