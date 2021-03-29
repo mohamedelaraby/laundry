@@ -76,9 +76,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user =  $this->usersRepository->findById($id);
+        
 
-       $this->isUser($user);
+       $user = $this->isUser($id);
 
         return $this->returnData('user',$user,trans('auth.found'));
     }
@@ -106,12 +106,12 @@ class UserController extends Controller
             $user = $this->usersRepository->findById($id);
            
             // Check for user
-            $user = $this->isUser($user);
+            $user = $this->isUser($id);
 
            // Update user
              $this->usersRepository->updateUser($user,$request);
 
-        return $this->returnSuccessMessage(trans('auth-success-addrecord'));
+        return $this->returnSuccessMessage(trans('auth-success-updateRecord'));
 
         } catch(\Exception $exception){
             return $this->returnError($exception->getCode(), $exception->getMessage());
@@ -126,7 +126,16 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            // check for user
+             $this->isUser($id);
+
+            $this->usersRepository->delete($id);
+
+            return $this->returnSuccessMessage(trans('auth-success-deleteRecord'));
+        } catch(\Exception $exception){
+            return $this->returnError($exception->getCode(), $exception->getMessage());
+        }
     }
 
 
@@ -138,10 +147,11 @@ class UserController extends Controller
     /**
      * Check foruser Exists
      *
-     * @return bool
+     * @return 
      */
-    private function isUser($user)
+    private function isUser($id)
     {
+        $user =  $this->usersRepository->findById($id);
         if(!$user){
             return $this->returnError('E001',trans('auth.notFound'));
         } else {

@@ -21,6 +21,7 @@ return [
     // Api syllabus
     'success-addrecord' => 'Successfully Add Record',
     'success-updaterecord' => 'Successfully Update Record',
+    'success-deleteRecord' => 'Successfully Delete Record',
     'failed-record' => ' Failed to conform record',
     'notFound' => 'Record not found',
     'found' => 'Record is exist',
