@@ -78,9 +78,7 @@ class UserController extends Controller
     {
         $user =  $this->usersRepository->findById($id);
 
-        if(!$user){
-            return $this->returnError('E001',trans('auth.notFound'));
-        }
+       $this->isUser($user);
 
         return $this->returnData('user',$user,trans('auth.found'));
     }
@@ -96,23 +94,24 @@ class UserController extends Controller
     {
         try{
 
-            $user = $this->usersRepository->findById($id);
-            return $user;
-            
             $inputs = $request->all();
 
-            $validator = Validator::make($inputs, $this->rules(),$this->messages());
+            $validator = Validator::make($inputs, $this->rulesUpdate(),$this->messagesUpdate());
 
             if($validator->fails()){
                 $code =  $this->returnCodeAccordingToInput($validator);
                 return $this->returnValidationError($code,$validator);
             }
 
-        // create new user
+            $user = $this->usersRepository->findById($id);
+           
+            // Check for user
+            $user = $this->isUser($user);
 
-        $users = $this->usersRepository->create($inputs);
+           // Update user
+             $this->usersRepository->updateUser($user,$request);
 
-        return $this->returnData('users',$users,trans('auth-success-addrecord'));
+        return $this->returnSuccessMessage(trans('auth-success-addrecord'));
 
         } catch(\Exception $exception){
             return $this->returnError($exception->getCode(), $exception->getMessage());
@@ -136,6 +135,20 @@ class UserController extends Controller
      * Facilitators
      * ------------------------------------------------
      */
+    /**
+     * Check foruser Exists
+     *
+     * @return bool
+     */
+    private function isUser($user)
+    {
+        if(!$user){
+            return $this->returnError('E001',trans('auth.notFound'));
+        } else {
+            return $user;
+        }
+    }
+    
     /**
      * Get the validation rules that apply to the request.
      *
@@ -194,6 +207,24 @@ class UserController extends Controller
         ];
     }
 
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array
+     */
+    private function messagesUpdate()
+    {
+        return [
+            'name.required' => trans('auth.name-required'),
+            'name.regex' => trans('auth.name-regex'),
+            'passoword.required' => trans('auth.password-required'),
+            'password.regex' => trans('auth.password-regex'),
+            'phone.required' => trans('auth.phone-required'),
+            'email.email' => trans('auth.email-email'),
+            'email.required' => trans('auth.email-required'),
+        ];
+    }
+    
     /**
      * Get custom messages for validator errors.
      *
