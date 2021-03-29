@@ -22,4 +22,6 @@ return [
     'success-addrecord' => 'Successfully Add Record',
     'success-updaterecord' => 'Successfully Update Record',
     'failed-record' => ' Failed to conform record',
+    'notFound' => 'Record not found',
+    'found' => 'Record is exist',
 ];

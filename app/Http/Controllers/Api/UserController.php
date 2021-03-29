@@ -52,16 +52,15 @@ class UserController extends Controller
 
             $validator = Validator::make($inputs, $this->rules(),$this->messages());
 
-
             if($validator->fails()){
                 $code =  $this->returnCodeAccordingToInput($validator);
                 return $this->returnValidationError($code,$validator);
             }
 
-        // create new user 
-        
+        // create new user
+
         $users = $this->usersRepository->create($inputs);
-            
+
         return $this->returnData('users',$users,trans('auth-success-addrecord'));
 
         } catch(\Exception $exception){
@@ -77,7 +76,13 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user =  $this->usersRepository->findById($id);
+
+        if(!$user){
+            return $this->returnError('E001',trans('auth.notFound'));
+        }
+
+        return $this->returnData('user',$user,trans('auth.found'));
     }
 
     /**
@@ -89,7 +94,29 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+
+            $user = $this->usersRepository->findById($id);
+            return $user;
+            
+            $inputs = $request->all();
+
+            $validator = Validator::make($inputs, $this->rules(),$this->messages());
+
+            if($validator->fails()){
+                $code =  $this->returnCodeAccordingToInput($validator);
+                return $this->returnValidationError($code,$validator);
+            }
+
+        // create new user
+
+        $users = $this->usersRepository->create($inputs);
+
+        return $this->returnData('users',$users,trans('auth-success-addrecord'));
+
+        } catch(\Exception $exception){
+            return $this->returnError($exception->getCode(), $exception->getMessage());
+        }
     }
 
     /**
@@ -117,7 +144,7 @@ class UserController extends Controller
     private function rules()
     {
         return [
-            'name' => 
+            'name' =>
             [
                 'required',
                 'string',
@@ -129,6 +156,34 @@ class UserController extends Controller
             'phone' => 'required|unique:users|regex:/(20)[0-9]{9}/|min:11',
             'password' =>[
                 'required',
+                'string',
+                'min:10',             // must be at least 10 characters in length
+                'regex:/[a-z]/',      // must contain at least one lowercase letter
+                'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                'regex:/[0-9]/',      // must contain at least one digit
+                'regex:/[@$!%*#?&]/', // must contain a special character
+            ],
+        ];
+    }
+    
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    private function rulesUpdate()
+    {
+        return [
+            'name' =>
+            [
+                'string',
+                'unique:users',
+                'min:6',
+                'regex:/^[A-Za-z]+(?:[ _-][A-Za-z]+)*$/'
+            ],
+            'email' =>'email|unique:users',
+            'phone' => 'unique:users|regex:/(20)[0-9]{9}/|min:11',
+            'password' =>[
                 'string',
                 'min:10',             // must be at least 10 characters in length
                 'regex:/[a-z]/',      // must contain at least one lowercase letter
