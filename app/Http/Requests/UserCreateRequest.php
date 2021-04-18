@@ -16,7 +16,12 @@ class UserCreateRequest extends FormRequest
         return true;
     }
 
-       /**
+     
+   /**-----------------------------------------------------
+     * Facilitators
+     * ------------------------------------------------
+     */
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -24,11 +29,25 @@ class UserCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' =>'required|max:100|unique:users',
-            'user_name' =>'required|unique:users',
+            'name' => 
+            [
+                'required',
+                'string',
+                'unique:users',
+                'min:6',
+                'regex:/^[A-Za-z]+(?:[ _-][A-Za-z]+)*$/'
+            ],
             'email' =>'required|email|unique:users',
-            'phone' =>'required|min:11|max:20|unique:users',
-            'password' =>'required|min:8',
+            'phone' => 'required|unique:users|regex:/(20)[0-9]{9}/|min:11',
+            'password' =>[
+                'required',
+                'string',
+                'min:10',             // must be at least 10 characters in length
+                'regex:/[a-z]/',      // must contain at least one lowercase letter
+                'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                'regex:/[0-9]/',      // must contain at least one digit
+                'regex:/[@$!%*#?&]/', // must contain a special character
+            ],
             'confirmpassword' => 'required_with:password|same:password|min:8',
             'img' =>'required|max:2048',
             'code' =>'required|unique:users',
@@ -45,13 +64,12 @@ class UserCreateRequest extends FormRequest
     {
         return [
             'name.required' => trans('auth.name-required'),
-            'username.required' => trans('auth.username-required'),
+            'name.regex' => trans('auth.name-regex'),
             'passoword.required' => trans('auth.password-required'),
+            'password.regex' => trans('auth.password-regex'),
             'phone.required' => trans('auth.phone-required'),
-            'img.required' => trans('auth.img-required'),
             'email.email' => trans('auth.email-email'),
             'email.required' => trans('auth.email-required'),
-            'code.required' => trans('auth.code-required'),
         ];
     }
 }

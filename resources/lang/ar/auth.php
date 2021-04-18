@@ -29,6 +29,7 @@ return [
     'phone-required' => 'رقم الموبايل مطلوب',
     'phone-unique' => ' رقم الموبايل موجود بالفعل',
     'password-required' => 'كلمة المرور مطلوبة',
+    'password-required' => 'كلمة المرور مطلوبة',
 
     // APi syllbus
     'tokenInvalid' => 'INVALID_TOKEN',

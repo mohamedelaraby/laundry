@@ -17,6 +17,15 @@ class UsersRepository
     public function all(){
         return DB::table('users')->get();
     }
+    
+    /**
+     * Get specific number of  reocrds
+     *
+     * @param array
+     */
+    public function paginate($number){
+        return User::paginate($number);
+    }
 
     /**
      * Get all reocrds
@@ -35,6 +44,7 @@ class UsersRepository
      */
     public function findById($id){
         $user = User::find($id);
+       
         return $user;
     }
 
@@ -61,6 +71,13 @@ class UsersRepository
      */
     public function update($user,$request){
         return  $this->findById($user->id)->update($this->UserData($user,$request));
+    }
+    
+    /**
+     * Update existing Record
+     */
+    public function updateUser($user,$request){
+        return  $this->findById($user->id)->update($request->all());
     }
 
     /**

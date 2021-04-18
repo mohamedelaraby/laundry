@@ -2,11 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Models\Service;
-use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use App\Models\ServiceType;
 use Illuminate\Support\Facades\DB;
 
-class ServicesRepository Implements BaseRepositoryInterface
+class ServicesTypesRepository
 {
     /**
      * Get all reocrds
@@ -14,7 +13,7 @@ class ServicesRepository Implements BaseRepositoryInterface
      * @param array
      */
     public function all(){
-        return DB::table('services')->get();
+        return DB::table('service_types')->get();
     }
 
     /**
@@ -23,7 +22,7 @@ class ServicesRepository Implements BaseRepositoryInterface
      * @param $id
      */
     public function findById($id){
-        return Service::find($id);
+        return ServiceType::find($id);
     }
 
 

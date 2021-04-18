@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Car;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Support\Facades\DB;
 
@@ -16,14 +17,15 @@ class CarsRepository Implements BaseRepositoryInterface
         return DB::table('cars')->get();
     }
 
-    /**
+  /**
      * Get Record By id
      *
      * @param $id
      */
     public function findById($id){
-
+        return Car::find($id);
     }
+
 
 
     /**

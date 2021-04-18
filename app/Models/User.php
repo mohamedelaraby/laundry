@@ -113,5 +113,12 @@ public function services(){
     return $this->hasMany(Service::class);
 }
 
+/**
+ * Reviews of user
+ *
+ */
+public function reviews(){
+    return $this->hasMany(Review::class);
+}
 
 }
