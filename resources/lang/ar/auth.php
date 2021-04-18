@@ -34,5 +34,5 @@ return [
     'tokenInvalid' => 'INVALID_TOKEN',
     'tokenExpired' => 'EXPIRED_TOKEN',
     'tokenNotFound' => 'TOKEN_NOTFOUND',
-
+    'userdatanotcorrect' => 'USER_DATA_NOT_CORRECT',
 ];

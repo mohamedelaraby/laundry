@@ -3,9 +3,21 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Models\Admin;
+use App\Models\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+
+/*
+|--------------------------------------------------------------------------
+| Model Factories
+|--------------------------------------------------------------------------
+|
+| This directory should contain each of the model factory definitions for
+| your application. Factories provide a convenient way to generate new
+| model instances for testing / seeding your application's database.
+|
+*/
 
 $factory->define(Admin::class, function (Faker $faker) {
     return [
@@ -15,6 +27,5 @@ $factory->define(Admin::class, function (Faker $faker) {
         'password' => Hash::make('test123123'), // password
         'phone' => $faker->e164PhoneNumber, // password
         'code' => Str::random(10),
-        'remember_token' => Str::random(10),
     ];
 });

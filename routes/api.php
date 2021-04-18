@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
+// Route::group(['namespace'=>'Api', 'middleware' => ['api','checkPassword']],function(){
+//     Route::post('services', 'TestController@index');
+// });
+
 Route::group(['namespace'=>'Api', 'middleware' => ['api','checkPassword']],function(){
 
     Route::group(['prefix' =>'admin'],function(){
@@ -18,8 +22,17 @@ Route::group(['namespace'=>'Api', 'middleware' => ['api','checkPassword']],funct
 
 });
 
+Route::group(['namespace'=>'Api', 'middleware' => ['api','checkPassword','checkUserToken:user-api']],function(){
 
-Route::group(['namespace'=>'Api', 'middleware' => ['api','checkPassword','checkAdminToken:admin-api']],function(){
+    // Users
+    // Route::apiResource('users', 'UserController');
+    Route::post('users', 'UserController@index');
+    
+    // Services
+    Route::group(['prefix'=> 'services'],function(){
+        Route::post('/', 'ServiceController@index');
 
-    Route::post('users', 'UserController@index')->name('api.users.index');
+    });
+
 });
+

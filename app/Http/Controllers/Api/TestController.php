@@ -1,27 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\APi;
 
 use App\Http\Controllers\Controller;
 use App\Models\Service;
-use App\Models\User;
-use App\Repositories\UsersRepository;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class TestController extends Controller
 {
-
-
-     /** @param $usersRepository */
-     private $usersRepository;
-
-     public function __construct(UsersRepository $usersRepository)
-     {
-         $this->usersRepository = $usersRepository;
-     }
-
-
-
     /**
      * Display a listing of the resource.
      *
@@ -29,10 +15,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        // $users = $this->usersRepository->all();
-        $users = User::paginate(20);
-
-        return response()->json($users);
+        $services = Service::all();
+       
+        return response()->json($services);
     }
 
     /**
@@ -43,7 +28,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        return 'new user';
+        //
     }
 
     /**

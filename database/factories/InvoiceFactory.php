@@ -20,9 +20,9 @@ use Illuminate\Support\Str;
 $factory->define(Invoice::class, function (Faker $faker) {
     return [
 
-        'release_date' => $faker->dateTime(),
-        'expire_date' => $faker->dateTime(),
-        'code' => Str::random(10),
+        // 'release_date' => $faker->dateTime(),
+        // 'expire_date' => $faker->dateTime(),
+        // 'code' => Str::random(10),
         // 'user_id' => $faker->numberBetween(1,500),
         // 'car_id' => $faker->numberBetween(1,4),
         // 'service_id' => $faker->numberBetween(1,500),
